@@ -15,7 +15,7 @@ void LiftMoveTo(int LiftPosition) {
 
 void LiftManualControl() {
     int CurrentLiftPosition = liftLeft.get_position();
-    LiftPID.target_set(LiftPID.target + 20);
+    LiftPID.target_set(LiftPID.target + 30);
 }
 
 void ResetLiftPosition() {
@@ -28,11 +28,11 @@ void LiftHome() {
 }
 
 void LiftLoad() {
-    LiftPID.target_set(185);
+    LiftPID.target_set(175);
 }
 
 void LiftScore() {
-    LiftPID.target_set(1000);
+    LiftPID.target_set(1100);
 }
 
 void LiftControl() {
@@ -45,7 +45,7 @@ void LiftControl() {
     else if (master.get_digital(DIGITAL_X)) {
         LiftScore();
     }
-    else if (master.get_digital(DIGITAL_LEFT)) {
+    else if (master.get_digital(DIGITAL_B)) {
         LiftManualControl();
     }
 }

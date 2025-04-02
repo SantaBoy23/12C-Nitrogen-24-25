@@ -14,5 +14,5 @@ void DoinkersDrop(bool DoinkersState) {
 }
 
 void DoinkerControl() {
-    doinkerRight.button_toggle(master.get_digital(DIGITAL_B));
+    doinkerRight.button_toggle(master.get_digital(DIGITAL_RIGHT));
 }

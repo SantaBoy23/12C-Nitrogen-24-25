@@ -5,6 +5,6 @@
 
 inline pros::Optical intakeColor(5);
 
-enum ColorMode;
-void ToggleColorSort();
+void ToggleColorMode();
 void ColorSort();
+void ColorSensorLight(int LightLevel);

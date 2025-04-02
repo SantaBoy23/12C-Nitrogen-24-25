@@ -50,6 +50,8 @@
 #include "lift.hpp"
 #include "doinker.hpp"
 #include "clamp.hpp"
+#include "colorSort.hpp"
+#include "nothing.hpp"
 
 /**
  * If you find doing pros::Motor() to be tedious and you'd prefer just to do

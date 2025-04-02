@@ -32,7 +32,10 @@ void initialize() {
   // Print our branding over your terminal :D
   ez::ez_template_print();
 
-  pros::delay(500);  // Stop the user from doing anything while legacy ports configure
+  pros::delay(500);  // Stop t;he user from doing anything while legacy ports configure
+
+  pros::lcd::initialize();
+  pros::lcd::register_btn1_cb(ToggleColorMode);
 
   // Look at your horizontal tracking wheel and decide if it's in front of the midline of your robot or behind it
   //  - change `back` to `front` if the tracking wheel is in front of the midline
@@ -76,6 +79,7 @@ void initialize() {
   // Initialize chassis and auton selector
   chassis.initialize();
   ez::as::initialize();
+  ColorSensorLight(100);
   master.rumble(chassis.drive_imu_calibrated() ? "." : "---");
 }
 
@@ -85,9 +89,11 @@ void initialize() {
  * the robot is enabled, this task will exit.
  */
 void disabled() {
+  pros::Task ColorSort_Task(ColorSort);
 }
 
 void lift_task();
+//void ColorSort();
 
 pros::Task Lift_Task(lift_task);
 
