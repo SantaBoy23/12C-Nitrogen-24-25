@@ -5,5 +5,7 @@
 
 inline pros::Motor intake(-4);
 
+inline bool IntakeControlActive = true;
+
 void IntakeMove(int IntakeSpeed);
 void IntakeControl();

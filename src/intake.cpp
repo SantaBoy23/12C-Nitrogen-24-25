@@ -5,6 +5,7 @@ void IntakeMove(int IntakeSpeed) {
 }
 
 void IntakeControl() {
+    if (IntakeControlActive == true) {
     if (master.get_digital(DIGITAL_L1)) {
         IntakeMove(127);
     } 
@@ -13,5 +14,6 @@ void IntakeControl() {
     } 
     else {
         IntakeMove(0);
+    }
     }
 }

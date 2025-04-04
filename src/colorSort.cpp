@@ -21,31 +21,30 @@ void ToggleColorMode() {
 
 void ColorSort() {
   pros::delay(2000);
-  pros::lcd::print(0, "ColorSort Running...");
+  master.rumble("---");
   while (true) {
+    double IntakeColorHue = intakeColor.get_hue();
+    int IntakeColorProximity = intakeColor.get_proximity();
+    
     if (current_mode == BlueMode) {  
-      if ((intakeColor.get_hue()) < 17 && (intakeColor.get_proximity() <= 300)) {
-        pros::delay(50);
+      if ((IntakeColorHue) < 17 && (IntakeColorProximity <= 300)) {
+        IntakeControlActive = false;
+        pros::delay(20);
         IntakeMove(0);
-        pros::delay(100);
+        pros::delay(40);
+        IntakeControlActive = true;
       } 
-      else {
-        DoNothing();
-      }
     }
     else if (current_mode == RedMode) {
-      if (((intakeColor.get_hue()) > 190) && ((intakeColor.get_hue()) < 350) && (intakeColor.get_proximity() <= 255)) {
-        pros::delay(50);
+      if (((IntakeColorHue > 190) && (IntakeColorHue) < 350) && (IntakeColorProximity <= 255)) {
+        IntakeControlActive = false;
+        pros::delay(10);
         IntakeMove(0);
-        pros::delay(100);
-      } 
-      else {
-        DoNothing();
+        pros::delay(80);
+        IntakeControlActive = true;
       } 
     }
-    else {
-      DoNothing();
-    }
+    pros::delay(ez::util::DELAY_TIME);
   }
 }
 

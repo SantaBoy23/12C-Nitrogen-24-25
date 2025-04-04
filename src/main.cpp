@@ -89,13 +89,13 @@ void initialize() {
  * the robot is enabled, this task will exit.
  */
 void disabled() {
-  pros::Task ColorSort_Task(ColorSort);
 }
 
 void lift_task();
-//void ColorSort();
+void ColorSort();
 
 pros::Task Lift_Task(lift_task);
+pros::Task ColorSort_Task(ColorSort);
 
 /**
  * Runs after initialize(), and before autonomous when connected to the Field
@@ -257,6 +257,7 @@ void opcontrol() {
     LiftControl();
     DoinkerControl();
     ClampControl();
+      std::cout << intakeColor.get_hue() << std::endl;
     //add more opcontrol functions here  
     pros::delay(ez::util::DELAY_TIME);
   }
