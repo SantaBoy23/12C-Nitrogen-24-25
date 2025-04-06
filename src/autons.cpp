@@ -1,23 +1,22 @@
 #include "main.h"
 
-// These are out of 127
 const int DRIVE_SPEED = 110;
 const int TURN_SPEED = 90;
 const int SWING_SPEED = 110;
 
-///
-// Constants
-///
 void default_constants() {
+
+  chassis.drive_imu_scaler_set(1.0282);
+
   // P, I, D, and Start I
   chassis.pid_drive_constants_forward_set(17.80, 0.0, 102.50);
-  chassis.pid_drive_constants_backward_set(19.0, 0.0, 85.75);  // Fwd/rev constants, used for odom and non odom motions
+  chassis.pid_drive_constants_backward_set(17.80, 0.0, 102.50);  // Fwd/rev constants, used for odom and non odom motions
   chassis.pid_heading_constants_set(12.0, 0.0, 20.0);        // Holds the robot straight while going forward without odom
-  chassis.pid_turn_constants_set(5.10 , 0.05, 19.25, 15.0);     // Turn in place constants
+  chassis.pid_turn_constants_set(3.0, 0.015, 17.25, 15.0);   // Turn in place constants
   chassis.pid_swing_constants_forward_set(6.90, 0.0, 55.0);
   chassis.pid_swing_constants_backward_set(6.90, 0.0, 55.0);   // Swing constants
-  chassis.pid_odom_angular_constants_set(6.5, 0.0, 52.5);    // Angular control for odom motions
-  chassis.pid_odom_boomerang_constants_set(5.8, 0.0, 32.5);  // Angular control for boomerang motions
+  chassis.pid_odom_angular_constants_set(6.4, 0.0, 52.5);    // Angular control for odom motions
+  chassis.pid_odom_boomerang_constants_set(2.75, 0.0, 36.0);  // Angular control for boomerang motions
 
   // Exit conditions
   chassis.pid_turn_exit_condition_set(90_ms, 3_deg, 250_ms, 7_deg, 500_ms, 500_ms);
@@ -45,6 +44,115 @@ void default_constants() {
   chassis.pid_angle_behavior_set(ez::shortest);  // Changes the default behavior for turning, this defaults it to the shortest path there
 }
 
+void SoloAWPBlue(){ 
+
+  //set starting angle
+  chassis.drive_angle_set(45_deg);
+
+  //drive forward a bit
+  chassis.pid_drive_set(-3_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  //put ring on alliance stake
+  pros::delay(50);
+  LiftMoveTo(1400);
+  pros::delay(400);
+
+  //drive back from alliance stake
+  chassis.pid_drive_set(15.5_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  //turn towards mogo
+  chassis.pid_turn_set(0_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+  //drive to mogo and clamp
+  chassis.pid_drive_set(16_in, DRIVE_SPEED, true);
+  chassis.pid_wait_until(15_in);
+  ClampDown(true);
+
+  //start intake
+  IntakeMove(127);
+
+  //turn to first ring
+  chassis.pid_turn_set(-110_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+  //drive to ring
+  chassis.pid_drive_set(-20_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  //drive back from ring
+  chassis.pid_drive_set(20_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  //turn towards 4 ring stack
+  chassis.pid_turn_set(-155_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+  //drop ring rush mech
+  DoinkerRightDrop(true);
+
+  //drive to 4 ring stack
+  chassis.pid_drive_set(-26_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  //drive back from 4 ring stack and raise doinker
+  chassis.pid_drive_set(40_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+  DoinkerRightDrop(false);
+
+  //turn rings near alliance stake
+  chassis.pid_turn_set(78_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+  //drop mogo
+  ClampDown(false);
+
+  //drive to rings
+  chassis.pid_drive_set(-40_in, DRIVE_SPEED, true); 
+  chassis.pid_wait();
+
+  //stop intaking and leave one ring in intake
+  IntakeMove(0);
+
+  //turn towards other mogo
+  chassis.pid_turn_set(0_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+  //drive to mogo and clamp
+  chassis.pid_drive_set(20_in, 50, true);
+  chassis.pid_wait_until(19);
+  ClampDown(true);
+
+  //start intaking
+  IntakeMove(127);
+
+  //turn to other rings
+  chassis.pid_turn_set(90_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+  //drive to other rings
+  chassis.pid_drive_set(-20_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  //drive back from rings
+  chassis.pid_drive_set(25_in, DRIVE_SPEED, true);
+  chassis.pid_wait_quick_chain();
+
+  //put lb up
+  LiftMoveTo(1100);
+
+  //turn towards ladder
+  chassis.pid_turn_set(-135_deg, DRIVE_SPEED, true);
+  chassis.pid_wait_quick_chain();
+
+  //drive to ladder
+  chassis.pid_drive_set(-12_in, 50, true);
+  chassis.pid_wait();
+
+}
+
 ///
 // Drive Example
 ///
@@ -57,11 +165,11 @@ void drive_example() {
   chassis.pid_drive_set(24_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 
-  //chassis.pid_drive_set(-12_in, DRIVE_SPEED);
-  //chassis.pid_wait();
+  chassis.pid_drive_set(-12_in, DRIVE_SPEED);
+  chassis.pid_wait();
 
-  //chassis.pid_drive_set(-12_in, DRIVE_SPEED);
-  //chassis.pid_wait();
+  chassis.pid_drive_set(-12_in, DRIVE_SPEED);
+  chassis.pid_wait();
 }
 
 ///
@@ -256,16 +364,15 @@ void odom_drive_example() {
 ///
 void odom_pure_pursuit_example() {
   // Drive to 0, 30 and pass through 6, 10 and 0, 20 on the way, with slew
-  chassis.pid_odom_set({{{6_in, 10_in}, fwd, DRIVE_SPEED},
-                        {{0_in, 20_in}, fwd, DRIVE_SPEED},
-                        {{0_in, 30_in}, fwd, DRIVE_SPEED}},
+  chassis.pid_odom_set({{{0_in, 24_in}, fwd, DRIVE_SPEED},
+                        {{24_in, 24_in}, fwd, DRIVE_SPEED}},
                        true);
   chassis.pid_wait();
 
   // Drive to 0, 0 backwards
-  chassis.pid_odom_set({{0_in, 0_in}, rev, DRIVE_SPEED},
-                       true);
-  chassis.pid_wait();
+  //chassis.pid_odom_set({{0_in, 0_in}, rev, DRIVE_SPEED},
+  //                     true);
+  //chassis.pid_wait();
 }
 
 ///
@@ -286,13 +393,13 @@ void odom_pure_pursuit_wait_until_example() {
 // Odom Boomerang
 ///
 void odom_boomerang_example() {
-  chassis.pid_odom_set({{0_in, 24_in, 45_deg}, fwd, DRIVE_SPEED},
+  chassis.pid_odom_set({{24_in, 24_in, 90_deg}, fwd, DRIVE_SPEED},
                        true);
   chassis.pid_wait();
 
-  chassis.pid_odom_set({{0_in, 0_in, 0_deg}, rev, DRIVE_SPEED},
-                       true);
-  chassis.pid_wait();
+  //chassis.pid_odom_set({{0_in, 0_in, 0_deg}, rev, DRIVE_SPEED},
+  //                     true);
+  //chassis.pid_wait();
 }
 
 ///
