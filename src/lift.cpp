@@ -25,7 +25,7 @@ void LiftMoveTo(int LiftPosition) {
 void LiftManualControl() {
     
     //Increase lift PID target by 30
-    LiftPID.target_set(LiftPID.target + 30);
+    LiftMoveTo(LiftPID.target + 30);
 }
 
 //Function to reset lift motor positions
@@ -34,14 +34,34 @@ void ResetLiftPosition() {
     liftLeft.tare_position();
 }
 
+//Function to set lift motors to brake hold mode
+void LiftSetBrakeHold() {
+    liftRight.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    liftLeft.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+}
+
+//Function to set lift motors to brake coast mode
+void LiftSetBrakeCoast() {
+    liftRight.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+    liftLeft.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+}
+
 //Function to set lift PID target to start/home position
 void LiftHome() {
-    LiftPID.target_set(0);
+    if (liftLimit.get_value()){
+        pros::delay(20);
+        ResetLiftPosition();
+        LiftSetBrakeHold();
+        LiftMoveTo(0);
+    }
+    else {
+        LiftMoveTo(LiftPID.target - 30);
+    }
 }
 
 //Function to set lift PID target to loading position
 void LiftLoad() {
-    LiftPID.target_set(175);
+    LiftPID.target_set(180);
 }
 
 //Function to set lift PID target to scoring position

@@ -14,7 +14,7 @@ inline void set_lift(int input) {
     liftLeft.move(input);
 }
   
-inline ez::PID LiftPID{0.45, 0, 0, 0, "Lift"};
+inline ez::PID LiftPID{0.6, 0, .1, 0, "Lift"};
 
 inline void lift_wait() {
     while (LiftPID.exit_condition({liftLeft, liftRight}, true) == ez::RUNNING) {

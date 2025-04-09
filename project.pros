@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "12C_Worlds_0.2",
+    "project_name": "12C_Worlds_0.3",
     "target": "v5",
     "templates": {
       "EZ-Template": {
@@ -424,7 +424,7 @@
       }
     },
     "upload_options": {
-      "description": "TralaleroTralala",
+      "description": "bla",
       "slot": 1,
       "icon": "pizza"
     },

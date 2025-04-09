@@ -3,6 +3,19 @@
 void default_constants();
 
 void SoloAWPBlue();
+void SoloAWPRed();
+void SoloAWPAltBlue();
+void SoloAWPAltRed();
+void GoalSideQualsBlue();
+void GoalSideQualsRed();
+void RingSideQualsBlue();
+void RingSideQualsRed();
+void GoalSideElimsBlue();
+void GoalSideElimsRed();
+void GoalSideElimsAltBlue();
+void GoalSideElimsAltRed();
+void RingSideElimsBlue();
+void RingSideElimsRed();
 
 void drive_example();
 void turn_example();

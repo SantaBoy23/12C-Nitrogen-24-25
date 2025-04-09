@@ -1,66 +1,39 @@
 #include "main.h"
 
 ez::Drive chassis(
-    // These are your drive motors, the first motor is used for sensing!
-    {-15, -16, -17},     // Left Chassis Ports (negative port will reverse it!)
-    {18, 19, 20},  // Right Chassis Ports (negative port will reverse it!)
+    {-15, -16, -17},     // Left Chassis Ports
+    {18, 19, 20},  // Right Chassis Ports
+    10, 3.25, 450); // IMU port, Wheel Diameter, Drivebase RPM
 
-    10,      // IMU Port
-    3.25,  // Wheel Diameter (Remember, 4" wheels without screw holes are actually 4.125!)
-    450);   // Wheel RPM = cartridge * (motor gear / wheel gear)
+ez::tracking_wheel horiz_tracker(6, 2, 4.33);  // Horizontal Tracking Wheel
+// ez::tracking_wheel vert_tracker(9, 2.75, 4.0);   // Verical Tracking Wheel
 
-// Uncomment the trackers you're using here!
-// - `8` and `9` are smart ports (making these negative will reverse the sensor)
-//  - you should get positive values on the encoders going FORWARD and RIGHT
-// - `2.75` is the wheel diameter
-// - `4.0` is the distance from the center of the wheel to the center of the robot
-ez::tracking_wheel horiz_tracker(6, 2, 4.33);  // This tracking wheel is perpendicular to the drive wheels
-// ez::tracking_wheel vert_tracker(9, 2.75, 4.0);   // This tracking wheel is parallel to the drive wheels
-
-/**
- * Runs initialization code. This occurs as soon as the program is started.
- *
- * All other competition modes are blocked by initialize; it is recommended
- * to keep execution time for this mode under a few seconds.
- */
 void initialize() {
 
   void ResetLiftPosition();
 
   LiftPID.exit_condition_set(80, 50, 300, 150, 500, 500);
 
-  // Print our branding over your terminal :D
-  ez::ez_template_print();
+  ez::ez_template_print(); // Print EZ Template Branding
 
-  pros::delay(500);  // Stop t;he user from doing anything while legacy ports configure
+  pros::delay(500);  // Allow Legacy Ports to Configure
 
-  pros::lcd::initialize();
-  pros::lcd::register_btn1_cb(ToggleColorMode);
+  pros::lcd::initialize(); // Initialize LCD Screen
+  pros::lcd::register_btn1_cb(ToggleColorMode); // Print Color Sort Selector
 
-  // Look at your horizontal tracking wheel and decide if it's in front of the midline of your robot or behind it
-  //  - change `back` to `front` if the tracking wheel is in front of the midline
-  //  - ignore this if you aren't using a horizontal tracker
-  chassis.odom_tracker_front_set(&horiz_tracker);
-  // Look at your vertical tracking wheel and decide if it's to the left or right of the center of the robot
-  //  - change `left` to `right` if the tracking wheel is to the right of the centerline
-  //  - ignore this if you aren't using a vertical tracker
-  // chassis.odom_tracker_left_set(&vert_tracker);
+  chassis.odom_tracker_front_set(&horiz_tracker); //Horizontal Tracking Wheel
+  // chassis.odom_tracker_left_set(&vert_tracker); //Vertical Tracking Wheel
 
-  // Configure your chassis controls
+  // Chassis Controls
   chassis.opcontrol_curve_buttons_toggle(true);   // Enables modifying the controller curve with buttons on the joysticks
-  chassis.opcontrol_drive_activebrake_set(0);   // Sets the active brake kP. We recommend ~2.  0 will disable.
-  //chassis.opcontrol_curve_default_set(0.0, 0.0);  // Defaults for curve. If using tank, only the first parameter is used. (Comment this line out if you have an SD card!)
-
-  // Set the drive to your own constants from autons.cpp!
-  default_constants();
-
-  // These are already defaulted to these buttons, but you can change the left/right curve buttons here!
-  // chassis.opcontrol_curve_buttons_left_set(pros::E_CONTROLLER_DIGITAL_LEFT, pros::E_CONTROLLER_DIGITAL_RIGHT);  // If using tank, only the left side is used.
-  // chassis.opcontrol_curve_buttons_right_set(pros::E_CONTROLLER_DIGITAL_Y, pros::E_CONTROLLER_DIGITAL_A);
+  chassis.opcontrol_drive_activebrake_set(0);   // Sets the active brake kP
+  
+  default_constants(); // Set default autonomous constants
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
     {"Solo AWP Blue\n\nRegular Solo AWP for Blue. Start on Ring Side.", SoloAWPBlue},
+    {"Solo AWP Red\n\nRegular Solo AWP for Red. Start on Ring Side.", SoloAWPRed},
       {"Drive\n\nDrive forward and come back", drive_example},
       {"Turn\n\nTurn 3 times.", turn_example},
       {"Drive and Turn\n\nDrive forward, turn, come back", drive_and_turn},
@@ -84,44 +57,18 @@ void initialize() {
   master.rumble(chassis.drive_imu_calibrated() ? "." : "---");
 }
 
-/**
- * Runs while the robot is in the disabled state of Field Management System or
- * the VEX Competition Switch, following either autonomous or opcontrol. When
- * the robot is enabled, this task will exit.
- */
 void disabled() {
 }
 
 void lift_task();
 void ColorSort();
 
-pros::Task Lift_Task(lift_task);
-pros::Task ColorSort_Task(ColorSort);
+pros::Task Lift_Task(lift_task); // Turn on lift control/task
+pros::Task ColorSort_Task(ColorSort); // Turn on color sort
 
-/**
- * Runs after initialize(), and before autonomous when connected to the Field
- * Management System or the VEX Competition Switch. This is intended for
- * competition-specific initialization routines, such as an autonomous selector
- * on the LCD.
- *
- * This task will exit when the robot is enabled and autonomous or opcontrol
- * starts.
- */
 void competition_initialize() {
-  // . . .
 }
 
-/**
- * Runs the user autonomous code. This function will be started in its own task
- * with the default priority and stack size whenever the robot is enabled via
- * the Field Management System or the VEX Competition Switch in the autonomous
- * mode. Alternatively, this function may be called in initialize or opcontrol
- * for non-competition testing purposes.
- *
- * If the robot is disabled or communications is lost, the autonomous task
- * will be stopped. Re-enabling the robot will restart the task, not re-start it
- * from where it left off.
- */
 void autonomous() {
   chassis.pid_targets_reset();                // Resets PID targets to 0
   chassis.drive_imu_reset();                  // Reset gyro position to 0
@@ -129,25 +76,11 @@ void autonomous() {
   chassis.odom_xyt_set(0_in, 0_in, 0_deg);    // Set the current position, you can start at a specific position with this
   chassis.drive_brake_set(MOTOR_BRAKE_HOLD);  // Set motors to hold.  This helps autonomous consistency
 
-  /*
-  Odometry and Pure Pursuit are not magic
-
-  It is possible to get perfectly consistent results without tracking wheels,
-  but it is also possible to have extremely inconsistent results without tracking wheels.
-  When you don't use tracking wheels, you need to:
-   - avoid wheel slip
-   - avoid wheelies
-   - avoid throwing momentum around (super harsh turns, like in the example below)
-  You can do cool curved motions, but you have to give your robot the best chance
-  to be consistent
-  */
-
   ez::as::auton_selector.selected_auton_call();  // Calls selected auton from autonomous selector
 }
 
-/**
- * Simplifies printing tracker values to the brain screen
- */
+
+// Simplifies printing tracker values to the brain screen
 void screen_print_tracker(ez::tracking_wheel *tracker, std::string name, int line) {
   std::string tracker_value = "", tracker_width = "";
   // Check if the tracker exists
@@ -197,18 +130,10 @@ void ez_screen_task() {
 }
 pros::Task ezScreenTask(ez_screen_task);
 
-/**
- * Gives you some extras to run in your opcontrol:
- * - run your autonomous routine in opcontrol by pressing DOWN and B
- *   - to prevent this from accidentally happening at a competition, this
- *     is only enabled when you're not connected to competition control.
- * - gives you a GUI to change your PID values live by pressing X
- */
+// EZ Template Extras such as PID Tuner and autonomous trigger
 void ez_template_extras() {
   // Only run this when not connected to a competition switch
   if (!pros::competition::is_connected()) {
-    // PID Tuner
-    // - after you find values that you're happy with, you'll have to set them in auton.cpp
 
     // Enable / Disable PID Tuner
     //  When enabled:
@@ -236,30 +161,19 @@ void ez_template_extras() {
   }
 }
 
-/**
- * Runs the operator control code. This function will be started in its own task
- * with the default priority and stack size whenever the robot is enabled via
- * the Field Management System or the VEX Competition Switch in the operator
- * control mode.
- *
- * If no competition control is connected, this function will run immediately
- * following initialize().
- *
- * If the robot is disabled or communications is lost, the
- * operator control task will be stopped. Re-enabling the robot will restart the
- * task, not resume it from where it left off.
- */
+// Driver Control
 void opcontrol() {
   chassis.drive_brake_set(MOTOR_BRAKE_COAST);
 
+  // Put all robot control functions in this loop
   while (true) {
     ez_template_extras();
     chassis.opcontrol_tank();
     IntakeControl();
-    //LiftControl();
+    LiftControl();
     DoinkerControl();
     ClampControl();
-    //add more opcontrol functions here  
+    
     pros::delay(ez::util::DELAY_TIME);
   }
 }

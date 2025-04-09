@@ -6,7 +6,7 @@ const int SWING_SPEED = 110;
 
 void default_constants() {
 
-  chassis.drive_imu_scaler_set(1.0282);
+  chassis.drive_imu_scaler_set(1.0281);
 
   // P, I, D, and Start I
   chassis.pid_drive_constants_forward_set(17.80, 0.0, 102.50);
@@ -55,7 +55,7 @@ void SoloAWPBlue(){
 
   //put ring on alliance stake
   pros::delay(50);
-  LiftMoveTo(1400);
+  LiftMoveTo(1450);
   pros::delay(400);
 
   //drive back from alliance stake
@@ -75,7 +75,7 @@ void SoloAWPBlue(){
   IntakeMove(127);
 
   //turn to first ring
-  chassis.pid_turn_set(-110_deg, TURN_SPEED);
+  chassis.pid_turn_set(-107_deg, TURN_SPEED); //used to be -110
   chassis.pid_wait();
 
   //drive to ring
@@ -98,12 +98,12 @@ void SoloAWPBlue(){
   chassis.pid_wait();
 
   //drive back from 4 ring stack and raise doinker
-  chassis.pid_drive_set(40_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(42_in, DRIVE_SPEED, true); //used to be 40
   chassis.pid_wait();
   DoinkerRightDrop(false);
 
   //turn rings near alliance stake
-  chassis.pid_turn_set(78_deg, TURN_SPEED);
+  chassis.pid_turn_set(82_deg, TURN_SPEED); //used to be 78
   chassis.pid_wait();
 
   //drop mogo
@@ -116,6 +116,9 @@ void SoloAWPBlue(){
   //stop intaking and leave one ring in intake
   IntakeMove(0);
 
+  //delay to let ring fall out of intake
+  pros::delay(200);
+
   //turn towards other mogo
   chassis.pid_turn_set(0_deg, TURN_SPEED);
   chassis.pid_wait();
@@ -125,6 +128,9 @@ void SoloAWPBlue(){
   chassis.pid_wait_until(19);
   ClampDown(true);
 
+  //delay to prevent jamming
+  pros::delay(150);
+
   //start intaking
   IntakeMove(127);
 
@@ -133,7 +139,7 @@ void SoloAWPBlue(){
   chassis.pid_wait();
 
   //drive to other rings
-  chassis.pid_drive_set(-20_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(-24_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 
   //drive back from rings
@@ -151,6 +157,120 @@ void SoloAWPBlue(){
   chassis.pid_drive_set(-12_in, 50, true);
   chassis.pid_wait();
 
+}
+
+void SoloAWPRed(){
+
+  //set starting angle
+  chassis.drive_angle_set(-45_deg);
+
+  //drive forward a bit
+  chassis.pid_drive_set(-3_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  //put ring on alliance stake
+  pros::delay(50);
+  LiftMoveTo(1450);
+  pros::delay(400);
+
+  //drive back from alliance stake
+  chassis.pid_drive_set(15.5_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  //turn towards mogo
+  chassis.pid_turn_set(0_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+  //drive to mogo and clamp
+  chassis.pid_drive_set(16_in, DRIVE_SPEED, true);
+  chassis.pid_wait_until(15_in);
+  ClampDown(true);
+
+  //start intake
+  IntakeMove(127);
+
+  //turn to first ring
+  chassis.pid_turn_set(107_deg, TURN_SPEED); //used to be -110
+  chassis.pid_wait();
+
+  //drive to ring
+  chassis.pid_drive_set(-20_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  //drive back from ring
+  chassis.pid_drive_set(20_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  //turn towards 4 ring stack
+  chassis.pid_turn_set(155_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+  //drop ring rush mech
+  DoinkerRightDrop(true);
+
+  //drive to 4 ring stack
+  chassis.pid_drive_set(-26_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  //drive back from 4 ring stack and raise doinker
+  chassis.pid_drive_set(42_in, DRIVE_SPEED, true); //used to be 40
+  chassis.pid_wait();
+  DoinkerRightDrop(false);
+
+  //turn rings near alliance stake
+  chassis.pid_turn_set(-82_deg, TURN_SPEED); //used to be 78
+  chassis.pid_wait();
+
+  //drop mogo
+  ClampDown(false);
+
+  //drive to rings
+  chassis.pid_drive_set(-40_in, DRIVE_SPEED, true); 
+  chassis.pid_wait();
+
+  //stop intaking and leave one ring in intake
+  IntakeMove(0);
+
+  //delay to let ring fall out of intake
+  pros::delay(200);
+
+  //turn towards other mogo
+  chassis.pid_turn_set(0_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+  //drive to mogo and clamp
+  chassis.pid_drive_set(20_in, 50, true);
+  chassis.pid_wait_until(19);
+  ClampDown(true);
+
+  //delay to prevent jamming
+  pros::delay(150);
+
+  //start intaking
+  IntakeMove(127);
+
+  //turn to other rings
+  chassis.pid_turn_set(-90_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+  //drive to other rings
+  chassis.pid_drive_set(-24_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  //drive back from rings
+  chassis.pid_drive_set(25_in, DRIVE_SPEED, true);
+  chassis.pid_wait_quick_chain();
+
+  //put lb up
+  LiftMoveTo(1100);
+
+  //turn towards ladder
+  chassis.pid_turn_set(135_deg, DRIVE_SPEED, true);
+  chassis.pid_wait_quick_chain();
+
+  //drive to ladder
+  chassis.pid_drive_set(-12_in, 50, true);
+  chassis.pid_wait();
 }
 
 ///
