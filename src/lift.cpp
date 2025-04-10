@@ -48,14 +48,17 @@ void LiftSetBrakeCoast() {
 
 //Function to set lift PID target to start/home position
 void LiftHome() {
+    //If the lift limit switch is pressed, reset the lift position
     if (liftLimit.get_value()){
         pros::delay(20);
         ResetLiftPosition();
         LiftSetBrakeHold();
         LiftMoveTo(0);
     }
+
+    //If the lift limit switch is not being pressed, bring the lift home. Target is negative to counteract slippage.
     else {
-        LiftMoveTo(LiftPID.target - 30);
+        LiftMoveTo(-5);
     }
 }
 
@@ -74,6 +77,7 @@ void LiftControl() {
 
     //If A is pressed, set lift PID target to home position
     if (master.get_digital(DIGITAL_A)) {
+        goon = true;
         LiftHome();
     }
 
