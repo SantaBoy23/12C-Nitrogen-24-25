@@ -275,6 +275,125 @@ void SoloAWPRed(){
 
 void SoloAWPAltBlue () {
 
+  //set starting angle
+  chassis.drive_angle_set(-45_deg);
+
+  //drive forward a bit
+  chassis.pid_drive_set(-3_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  //put ring on alliance stake
+  pros::delay(50);
+  LiftMoveTo(1450);
+  pros::delay(400);
+
+  //drive back from alliance stake
+  chassis.pid_drive_set(15.5_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  //turn towards mogo
+  chassis.pid_turn_set(0_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+  //drive to mogo and clamp
+  chassis.pid_drive_set(16_in, DRIVE_SPEED, true);
+  chassis.pid_wait_until(15.3_in);
+  ClampDown(true);
+
+  //turn towards centered rings
+  chassis.pid_turn_set(-42.5_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+  //drive to centered rings and reset lb
+  LiftHome();
+  chassis.pid_drive_set(-13_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  //drop right doinker
+  DoinkerLeftDrop(true);
+
+  //drive forwards
+  pros::delay(250);
+  chassis.pid_drive_set(10_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  //lift doinker
+  DoinkerLeftDrop(false);
+  pros::delay(250);
+
+  //Turn towards ring and start intake
+  chassis.pid_turn_set(-65_deg, TURN_SPEED);
+  chassis.pid_wait();
+  intake.move(127);
+
+  //Move to ring
+  chassis.pid_drive_set(-7.5_in, DRIVE_SPEED);
+  chassis.pid_wait();
+//move forward
+  chassis.pid_drive_set(16_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+  pros::delay(250);
+
+  //turn towards center rings and stop intake
+  chassis.pid_turn_set(-133_deg, TURN_SPEED);
+  chassis.pid_wait();
+  intake.move (0);
+
+  //move to center rings and drop doinker
+  chassis.pid_drive_set(-39_in, 90, true);
+  chassis.pid_wait_until(-24_in);
+  DoinkerLeftDrop(true);
+
+  //move backwards and lift doinker and start intake
+  chassis.pid_drive_set(28_in, DRIVE_SPEED, true);
+  chassis.pid_wait_until(24_in);
+  DoinkerLeftDrop(false);
+  intake.move(127);
+
+  //turn towards ring and start intake
+  chassis.pid_turn_set(-140_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+  //move to ring
+  chassis.pid_drive_set(-10_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  //turn towards rings
+  chassis.pid_turn_set(92_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+  //move to rings and stop intake
+  intake.move(127);
+  chassis.pid_drive_set(-22_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+  intake.move(0);
+
+  //drop goal and turn to goal
+  chassis.pid_turn_set(-180_deg, TURN_SPEED);
+  chassis.pid_wait_quick_chain();
+  ClampDown(false);
+  chassis.pid_turn_set(-3_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+  //move to goal and grab goal and start intake
+  
+  chassis.pid_drive_set(10.5_in, DRIVE_SPEED, true);
+  chassis.pid_wait_until(10.4_in);
+  ClampDown(true);
+  pros::delay(50);
+  intake.move(127);
+  
+
+
+  //turn towards tower and put lb up
+  
+  chassis.pid_turn_set(160_deg, TURN_SPEED);
+  chassis.pid_wait_quick_chain();
+
+  //move into tower
+  
+  chassis.pid_drive_set(-7.5_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
 }
 
 void SoloAWPAltRed () {
@@ -308,7 +427,7 @@ void SoloAWPAltRed () {
   chassis.pid_wait();
 
   //drive to centered rings and reset lb
-  LiftMoveTo(0);
+  LiftHome();
   chassis.pid_drive_set(-13_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 
@@ -343,91 +462,61 @@ void SoloAWPAltRed () {
   intake.move (0);
 
   //move to center rings and drop doinker
-  chassis.pid_drive_set(-35_in, DRIVE_SPEED, true);
-  chassis.pid_wait_until(-23_in);
+  chassis.pid_drive_set(-39_in, 90, true);
+  chassis.pid_wait_until(-24_in);
   DoinkerRightDrop(true);
 
   //move backwards and lift doinker and start intake
-  chassis.pid_drive_set(26_in, DRIVE_SPEED, true);
-  chassis.pid_wait_until(22_in);
+  chassis.pid_drive_set(28_in, DRIVE_SPEED, true);
+  chassis.pid_wait_until(24_in);
   DoinkerRightDrop(false);
   intake.move(127);
 
   //turn towards ring and start intake
   chassis.pid_turn_set(140_deg, TURN_SPEED);
-  chassis.pid_wait_quick_chain();
+  chassis.pid_wait();
 
   //move to ring
-  chassis.pid_drive_set(-6_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(-10_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 
-  //swing into both rings and stop intake before second ring flies off and drop goal while swinging
-  /*
-  chassis.pid_swing_set(ez::RIGHT_SWING, -45_deg, SWING_SPEED, 45);
-  chassis.pid_wait_until();
+  //turn towards rings
+  chassis.pid_turn_set(-92_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+  //move to rings and stop intake
+  intake.move(127);
+  chassis.pid_drive_set(-22_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
   intake.move(0);
+
+  //drop goal and turn to goal
+  chassis.pid_turn_set(180_deg, TURN_SPEED);
+  chassis.pid_wait_quick_chain();
   ClampDown(false);
-  */
-
-  //turn towards goal
-  //chassis.pid_turn_set(180_deg, TURN_SPEED);
-  //chassis.pid_wait();
+  chassis.pid_turn_set(3_deg, TURN_SPEED);
+  chassis.pid_wait();
+  
 
   //move to goal and grab goal and start intake
-  /*
-  chassis.pid_drive_set(_in, DRIVE_SPEED, true);
-  chassis.pid_wait_until(_in);
+  
+  chassis.pid_drive_set(10.5_in, DRIVE_SPEED, true);
+  chassis.pid_wait_until(10.4_in);
   ClampDown(true);
-  pros::delay(100);
+  pros::delay(50);
   intake.move(127);
-  */
+  
 
 
-  //swing into tower and stop intake
-  /*
-  chassis.pid_swing_set(ez::RIGHT_SWING, -45_deg, SWING_SPEED, 45);
+  //swing towards tower
+  
+  chassis.pid_swing_set(ez::RIGHT_SWING, 180_deg, SWING_SPEED, 5);
+  chassis.pid_wait_quick_chain();
+
+  //move into tower
+  
+  chassis.pid_drive_set(-7.5_in, DRIVE_SPEED, true);
   chassis.pid_wait();
-  intake.move(0);
-  */
-
-
-
-  //Alt route?
-
-  //move forwards away from ring and start intake
-  /*
-  chassis.pid_drive_set(_in, DRIVE_SPEED, true);
-  chassis.pid_wait();
-  intake.move(127);
-  */
-
-  //swing into rings and drop goal and stop intake
-  /*
-  chassis.pid_swing_set(ez::RIGHT_SWING, -45_deg, SWING_SPEED, 45);
-  chassis.pid_wait_until();
-  intake.move(0);
-  */
-
-  //turn towards goal
-  //chassis.pid_turn_set(180_deg, TURN_SPEED);
-  //chassis.pid_wait();
-
-  //move to goal and grab goal and start intake
-  /*
-  chassis.pid_drive_set(_in, DRIVE_SPEED, true);
-  chassis.pid_wait_until(_in);
-  ClampDown(true);
-  pros::delay(100);
-  intake.move(127);
-  */
-
-
-  //swing into tower and stop intake
-  /*
-  chassis.pid_swing_set(ez::RIGHT_SWING, -45_deg, SWING_SPEED, 45);
-  chassis.pid_wait();
-  intake.move(0);
-  */
 }
 
 ///

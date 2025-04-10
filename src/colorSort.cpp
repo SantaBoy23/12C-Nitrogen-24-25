@@ -59,6 +59,7 @@ void ColorSort() {
 
         //Restart driver intake control
         IntakeControlActive = true;
+        IntakeMove(127);
       } 
     }
 
@@ -82,6 +83,7 @@ void ColorSort() {
 
         //Restart driver intake control
         IntakeControlActive = true;
+        IntakeMove(127);
       } 
     }
 
