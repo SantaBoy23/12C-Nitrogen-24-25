@@ -34,6 +34,8 @@ void initialize() {
   ez::as::auton_selector.autons_add({
     {"Solo AWP Blue\n\nRegular Solo AWP for Blue. Start on Ring Side.", SoloAWPBlue},
     {"Solo AWP Red\n\nRegular Solo AWP for Red. Start on Ring Side.", SoloAWPRed},
+    {"Solo AWP Alternate Blue\n\nSingle Side Solo AWP for Blue. Start on Goal Side.", SoloAWPAltBlue},
+    {"Solo AWP Alternate Red\n\nSingle Side Solo AWP for Red. Start on Goal Side.", SoloAWPAltRed},
       {"Drive\n\nDrive forward and come back", drive_example},
       {"Turn\n\nTurn 3 times.", turn_example},
       {"Drive and Turn\n\nDrive forward, turn, come back", drive_and_turn},
