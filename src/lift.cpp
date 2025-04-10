@@ -77,7 +77,6 @@ void LiftControl() {
 
     //If A is pressed, set lift PID target to home position
     if (master.get_digital(DIGITAL_A)) {
-        goon = true;
         LiftHome();
     }
 
