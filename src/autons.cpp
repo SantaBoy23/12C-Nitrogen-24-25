@@ -348,11 +348,12 @@ void SoloAWPAltBlue () {
   chassis.pid_drive_set(28_in, DRIVE_SPEED, true);
   chassis.pid_wait_until(24_in);
   DoinkerLeftDrop(false);
-  intake.move(127);
+  intake.move(-127);
 
   //turn towards ring and start intake
   chassis.pid_turn_set(-140_deg, TURN_SPEED);
   chassis.pid_wait();
+  IntakeMove(127);
 
   //move to ring
   chassis.pid_drive_set(-10_in, DRIVE_SPEED, true);
@@ -377,24 +378,24 @@ void SoloAWPAltBlue () {
 
   //move to goal and grab goal and start intake
   
-  chassis.pid_drive_set(10.5_in, DRIVE_SPEED, true);
-  chassis.pid_wait_until(10.4_in);
+  chassis.pid_drive_set(9_in, DRIVE_SPEED, true);
+  chassis.pid_wait_until(8.6_in);
   ClampDown(true);
   pros::delay(50);
   intake.move(127);
-  
-
 
   //turn towards tower and put lb up
-  
-  chassis.pid_turn_set(160_deg, TURN_SPEED);
+  chassis.pid_turn_set(270_deg, TURN_SPEED);
   chassis.pid_wait_quick_chain();
+  LiftMoveTo(1150);
 
   //move into tower
-  
-  chassis.pid_drive_set(-7.5_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(-8_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 }
+
+
+
 
 void SoloAWPAltRed () {
   //set starting angle
@@ -517,6 +518,102 @@ void SoloAWPAltRed () {
   
   chassis.pid_drive_set(-7.5_in, DRIVE_SPEED, true);
   chassis.pid_wait();
+}
+
+void GoalSideQualsBlue() {
+
+  //set starting angle
+  chassis.drive_angle_set(-45_deg);
+
+  //drive forward a bit
+  chassis.pid_drive_set(-3_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  //put ring on alliance stake
+  pros::delay(50);
+  LiftMoveTo(1450);
+  pros::delay(400);
+
+  //drive back from alliance stake
+  chassis.pid_drive_set(15.5_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  //turn towards mogo
+  chassis.pid_turn_set(0_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+  //drive to mogo and clamp
+  chassis.pid_drive_set(16_in, DRIVE_SPEED, true);
+  chassis.pid_wait_until(15.3_in);
+  ClampDown(true);
+
+  //turn towards centered rings
+  chassis.pid_turn_set(-42.5_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+  //drive to centered rings and reset lb
+  LiftHome();
+  chassis.pid_drive_set(-13_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  //drop right doinker
+  DoinkerLeftDrop(true);
+
+  //drive forwards
+  pros::delay(250);
+  chassis.pid_drive_set(10_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  //lift doinker
+  DoinkerLeftDrop(false);
+  pros::delay(250);
+
+  //Turn towards ring and start intake
+  chassis.pid_turn_set(-65_deg, TURN_SPEED);
+  chassis.pid_wait();
+  intake.move(127);
+
+  //Move to ring
+  chassis.pid_drive_set(-7.5_in, DRIVE_SPEED);
+  chassis.pid_wait();
+
+  //Turn to normal ring
+  chassis.pid_turn_set(180_deg, TURN_SPEED);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_turn_set(110_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+  //Drive to normal ring
+  chassis.pid_drive_set(-34_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  //turn towards corner
+  chassis.pid_turn_set(22_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+  //Move to corner
+  chassis.pid_drive_set(-25_in, DRIVE_SPEED, true);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(-11_in, 40, true);
+  chassis.pid_wait();
+  chassis.pid_turn_set(26_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+  //push into corner twice
+  chassis.pid_drive_set(-5_in, DRIVE_SPEED, true);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(8_in, DRIVE_SPEED, true);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(-6_in, DRIVE_SPEED, true);
+  chassis.pid_wait_quick_chain();
+
+  //go forwards, do a 180, back up
+  chassis.pid_drive_set(-30_in, DRIVE_SPEED, true);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_turn_set(206_deg, TURN_SPEED);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(8_in, DRIVE_SPEED, true);
+  chassis.pid_wait_quick_chain();
 }
 
 ///
