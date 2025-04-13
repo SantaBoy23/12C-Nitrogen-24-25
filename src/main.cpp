@@ -79,6 +79,8 @@ void autonomous() {
   chassis.odom_xyt_set(0_in, 0_in, 0_deg);    // Set the current position, you can start at a specific position with this
   chassis.drive_brake_set(MOTOR_BRAKE_HOLD);  // Set motors to hold.  This helps autonomous consistency
 
+  ColorSortAuto = true; // Set color sort to autonomous mode
+
   ez::as::auton_selector.selected_auton_call();  // Calls selected auton from autonomous selector
 }
 
@@ -166,6 +168,9 @@ void ez_template_extras() {
 
 // Driver Control
 void opcontrol() {
+  ColorSortAuto = false; // Disable automous color sort
+  ColorSortDriver = true; // Enable driver control color sort
+
   chassis.drive_brake_set(MOTOR_BRAKE_COAST);
 
   // Put all robot control functions in this loop

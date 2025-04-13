@@ -38,53 +38,99 @@ void ColorSort() {
 
     //Variable to store intake color sensor proximity reading
     int IntakeColorProximity = intakeColor.get_proximity();
+
+    //Run this loop if it is autonomous mode
+    if (ColorSortAuto == true) {
     
-    //Run this loop if the current mode is blue
-    if (current_mode == BlueMode) {  
+      //Run this loop if the current mode is blue
+      if (current_mode == BlueMode) {  
 
-      //Run this loop if the color sensor detects a hue <17 and the promixity is ≤300
-      if ((IntakeColorHue) < 17 && (IntakeColorProximity <= 300)) {
+        //Run this loop if the color sensor detects a hue <17 and the promixity is ≤300
+        if ((IntakeColorHue) < 17 && (IntakeColorProximity <= 300)) {
 
-        //Stop driver intake control
-        IntakeControlActive = false;
+          //Delay for 20ms
+          pros::delay(20);
 
-        //Delay for 20ms
-        pros::delay(20);
+          //Stop intake
+          IntakeMove(0);
 
-        //Stop intake
-        IntakeMove(0);
+          //Delay for 40ms
+          pros::delay(40);
 
-        //Delay for 40ms
-        pros::delay(40);
+          //Restart intake
+          IntakeMove(127);
+        } 
+      }
 
-        //Restart driver intake control
-        IntakeControlActive = true;
-        IntakeMove(127);
-      } 
+      //Run this loop if the current mode is red
+      else if (current_mode == RedMode) {
+
+        //Run this loop if the color sensor detects a hue >190 and <350 and the promixity is ≤255
+        if (((IntakeColorHue > 190) && (IntakeColorHue) < 350) && (IntakeColorProximity <= 255)) {
+
+          //Delay for 20ms
+          pros::delay(20);
+
+          //Stop intake
+          IntakeMove(0);
+
+          //Delay for 40ms
+          pros::delay(40);
+
+          //Restart intake
+          IntakeMove(127);
+        } 
+      }
     }
 
-    //Run this loop if the current mode is red
-    else if (current_mode == RedMode) {
+    //Run this loop if it is driver control
+    if (ColorSortDriver == true) {
 
-      //Run this loop if the color sensor detects a hue >190 and <350 and the promixity is ≤255
-      if (((IntakeColorHue > 190) && (IntakeColorHue) < 350) && (IntakeColorProximity <= 255)) {
+      //Run this loop if the current mode is blue
+      if (current_mode == BlueMode) {  
 
-        //Stop driver intake control
-        IntakeControlActive = false;
+        //Run this loop if the color sensor detects a hue <17 and the promixity is ≤300
+        if ((IntakeColorHue) < 17 && (IntakeColorProximity <= 300)) {
 
-        //Delay for 20ms
-        pros::delay(20);
+          //Stop driver intake control
+          IntakeControlActive = false;
 
-        //Stop intake
-        IntakeMove(0);
+          //Delay for 20ms
+          pros::delay(20);
 
-        //Delay for 40ms
-        pros::delay(40);
+          //Stop intake
+          IntakeMove(0);
 
-        //Restart driver intake control
-        IntakeControlActive = true;
-        IntakeMove(127);
-      } 
+          //Delay for 40ms
+          pros::delay(40);
+
+          //Restart driver intake control
+          IntakeControlActive = true;
+        } 
+      }
+
+      //Run this loop if the current mode is red
+      else if (current_mode == RedMode) {
+
+        //Run this loop if the color sensor detects a hue >190 and <350 and the promixity is ≤255
+        if (((IntakeColorHue > 190) && (IntakeColorHue) < 350) && (IntakeColorProximity <= 255)) {
+
+          //Stop driver intake control
+          IntakeControlActive = false;
+
+          //Delay for 20ms
+          pros::delay(20);
+
+          //Stop intake
+          IntakeMove(0);
+
+          //Delay for 40ms
+          pros::delay(40);
+
+          //Restart driver intake control
+          IntakeControlActive = true;
+        } 
+      }
     }
 
     //Delay to prevent overloading the CPU
