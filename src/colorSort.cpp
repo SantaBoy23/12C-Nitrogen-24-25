@@ -48,14 +48,11 @@ void ColorSort() {
         //Run this loop if the color sensor detects a hue <17 and the promixity is ≤300
         if ((IntakeColorHue) < 17 && (IntakeColorProximity <= 300)) {
 
-          //Delay for 20ms
-          pros::delay(20);
+          //Reverse intake
+          IntakeMove(-127);
 
-          //Stop intake
-          IntakeMove(0);
-
-          //Delay for 40ms
-          pros::delay(40);
+          //Delay for 80ms
+          pros::delay(80);
 
           //Restart intake
           IntakeMove(127);
@@ -68,14 +65,11 @@ void ColorSort() {
         //Run this loop if the color sensor detects a hue >190 and <350 and the promixity is ≤255
         if (((IntakeColorHue > 190) && (IntakeColorHue) < 350) && (IntakeColorProximity <= 255)) {
 
-          //Delay for 20ms
-          pros::delay(20);
+          //Reverse intake
+          IntakeMove(-127);
 
-          //Stop intake
-          IntakeMove(0);
-
-          //Delay for 40ms
-          pros::delay(40);
+          //Delay for 80ms
+          pros::delay(80);
 
           //Restart intake
           IntakeMove(127);
@@ -95,17 +89,14 @@ void ColorSort() {
           //Stop driver intake control
           IntakeControlActive = false;
 
-          //Delay for 20ms
-          pros::delay(20);
+          //Reverse intake
+          IntakeMove(-127);
 
-          //Stop intake
-          IntakeMove(0);
-
-          //Delay for 40ms
-          pros::delay(40);
+          //Delay for 80ms
+          pros::delay(80);
 
           //Restart driver intake control
-          IntakeControlActive = true;
+          IntakeControlActive = false;
         } 
       }
 
@@ -118,17 +109,14 @@ void ColorSort() {
           //Stop driver intake control
           IntakeControlActive = false;
 
-          //Delay for 20ms
-          pros::delay(20);
+          //Reverse intake
+          IntakeMove(-127);
 
-          //Stop intake
-          IntakeMove(0);
-
-          //Delay for 40ms
-          pros::delay(40);
+          //Delay for 80ms
+          pros::delay(80);
 
           //Restart driver intake control
-          IntakeControlActive = true;
+          IntakeControlActive = false;
         } 
       }
     }
