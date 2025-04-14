@@ -58,7 +58,7 @@ void LiftHome() {
 
     //If the lift limit switch is not being pressed, bring the lift home. Target is negative to counteract slippage.
     else {
-        LiftMoveTo(-5);
+        LiftMoveTo(-15);
     }
 }
 
