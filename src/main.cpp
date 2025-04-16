@@ -38,6 +38,7 @@ void initialize() {
     {"Solo AWP Alternate Red\n\nSingle Side Solo AWP for Red. Start on Goal Side.", SoloAWPAltRed},
     {"Safe Goal Side Blue\n\nSafe/Quals Goal Side for Blue. Start on Goal Side.", GoalSideQualsBlue},
     {"Safe Goal Side Red\n\nSafe/Quals Goal Side for Red. Start on Goal Side.", GoalSideQualsRed},
+    {"Safe Ring Side Red\n\nSafe/Quals Ring Side for Red. Start on Ring Side.", RingSideQualsRed},
     {"Elims Goal Side Blue\n\nRegular/Elims Goal Side for Blue. Start on Goal Side.", GoalSideElimsBlue},
     {"Elims Goal Side Red\n\nRegular/Elims Goal Side for Red. Start on Goal Side.", GoalSideElimsRed},
       {"Drive\n\nDrive forward and come back", drive_example},
