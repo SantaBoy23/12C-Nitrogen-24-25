@@ -744,9 +744,11 @@ void RingSideQualsRed() {
   chassis.pid_wait();
   LiftHome();
 
-  //drive to mogo and clamp
-  chassis.pid_drive_set(16.25_in, DRIVE_SPEED, true);
-  chassis.pid_wait_until(15.7_in);
+  //drive to mogo, slow down, and clamp
+  chassis.pid_drive_set(14_in, DRIVE_SPEED, true);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(2_in, 90, true);
+  chassis.pid_wait_until(1.4_in);
   ClampDown(true);
 
   //turn to ring  and start intake
@@ -755,6 +757,7 @@ void RingSideQualsRed() {
   IntakeMove(127);
 
   //drive to stack and drop doinker
+  DoinkerLeftDrop(true);
   chassis.pid_drive_set(-28_in, DRIVE_SPEED, true);
   chassis.pid_wait_until(-20_in);
   DoinkerLeftDrop(true);
@@ -767,19 +770,19 @@ void RingSideQualsRed() {
   //turn into lined up rings and drive into them
   chassis.pid_turn_set(116_deg, TURN_SPEED);
   chassis.pid_wait();
-  chassis.pid_drive_set(-21_in, 100, true);
+  chassis.pid_drive_set(-23_in, 100, true);
   chassis.pid_wait_quick_chain();
 
   //go forwards then turn towards corner rings
-  chassis.pid_drive_set(4_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(6_in, DRIVE_SPEED, true);
   chassis.pid_wait_quick_chain();
-  chassis.pid_turn_set(48_deg, TURN_SPEED);
+  chassis.pid_turn_set(50_deg, TURN_SPEED);
   chassis.pid_wait();
 
   //move into corner
   chassis.pid_drive_set(-33_in, DRIVE_SPEED, true);
   chassis.pid_wait_quick_chain();
-  chassis.pid_drive_set(-5.5_in, 60, true);
+  chassis.pid_drive_set(-5.5_in, 50, true);
   chassis.pid_wait_quick_chain();
 
   //move out of corner, stop intake, and turn towards alliance rings
@@ -797,7 +800,7 @@ void RingSideQualsRed() {
 
   //move away from alliance rings and lift doinker
   chassis.pid_drive_set(8_in, DRIVE_SPEED, true);
-  chassis.pid_wait();
+  chassis.pid_wait_until(7_in);
   DoinkerRightDrop(false);
 
   //turn towards ring, move into ring, then back up
@@ -808,11 +811,11 @@ void RingSideQualsRed() {
   chassis.pid_drive_set(6_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 
-  //turn towards ring and ladder, lift doinker, lift lb, and move into ladder
+  //turn towards ring and ladder, lift lb, and move into ladder
   chassis.pid_turn_set(220_deg, TURN_SPEED);
-  chassis.pid_wait();
-  LiftMoveTo(1275);
-  chassis.pid_drive_set(-9.5_in, DRIVE_SPEED, true);
+  chassis.pid_wait_quick_chain();
+  LiftMoveTo(1285);
+  chassis.pid_drive_set(-11.75_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 
 }
