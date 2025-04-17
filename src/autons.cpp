@@ -944,26 +944,49 @@ void GoalSideElimsAltRed() {
 
   //once 30 inches are driven, put down lift
   chassis.pid_wait_until(-15.4_in); //used to be -26
-  LiftMoveTo(1700);
+  LiftMoveTo(1400); //used to be 1450
   //pros::delay(300);
   chassis.pid_wait_quick_chain();
+
+  //turn quickly
+  //chassis.pid_turn_set(100_deg, 127);
+  //chassis.pid_wait();
+
+  //move back quickly
+  chassis.pid_drive_set(10_in, 127, true);
+  chassis.pid_wait();
 
   //twist to the right then back
   //chassis.pid_drive_set(7_in, DRIVE_SPEED, false);
   //chassis.pid_wait();
-  chassis.pid_turn_set(110_deg, 127);
-  chassis.pid_wait_quick_chain();
-  chassis.pid_turn_set(29_deg, TURN_SPEED);
-  chassis.pid_wait();
+  //chassis.pid_turn_set(110_deg, 127);
+  //chassis.pid_wait_quick_chain();
+  //chassis.pid_turn_set(29_deg, TURN_SPEED);
+  //chassis.pid_wait();
 
   //move towards second goal and clamp goal
-  chassis.pid_drive_set(17.6_in, DRIVE_SPEED, false);
-  chassis.pid_wait_until(17.4_in);
-  ClampDown(true);
+  //chassis.pid_drive_set(17.6_in, DRIVE_SPEED, false);
+  //chassis.pid_wait_until(17.4_in);
+  //ClampDown(true);
 
   //start intake, move backwards into rings
+  //IntakeMove(127);
+  //chassis.pid_drive_set(-12_in, DRIVE_SPEED, false);
+  //chassis.pid_wait();
+}
+
+void RingSideElimsRed() {
+
+  //drop doinker and start intake
+  DoinkerLeftDrop(true);
   IntakeMove(127);
-  chassis.pid_drive_set(-12_in, DRIVE_SPEED, false);
+
+  //rush to rings
+  chassis.pid_drive_set(-40_in, 127, false);
+  chassis.pid_wait_quick_chain();
+
+  //drive back from rings
+  chassis.pid_drive_set(20_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 
 }
@@ -971,7 +994,7 @@ void GoalSideElimsAltRed() {
 void RingSideElimsBlue() {
   
   //set starting angle
-  chassis.drive_angle_set(-170_deg);
+  //chassis.drive_angle_set(-170_deg);
 
   //put down doinker and start intake
   DoinkerRightDrop(true);
@@ -989,7 +1012,7 @@ void RingSideElimsBlue() {
   //swing to mogo and clamp
   chassis.pid_drive_set(1.5_in, DRIVE_SPEED, true);
   chassis.pid_wait_quick_chain();
-  chassis.pid_swing_set(ez::LEFT_SWING, -85_deg, SWING_SPEED, 10);
+  chassis.pid_swing_set(ez::LEFT_SWING, 90_deg, SWING_SPEED, 10);
   chassis.pid_wait();
   DoinkerRightDrop(false);
   pros::delay(400);
