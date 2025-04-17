@@ -936,21 +936,36 @@ void GoalSideElimsAltBlue(){
 }
 
 void GoalSideElimsAltRed() {
-  
-  //set starting angle
-  chassis.drive_angle_set(-160_deg);
-
   //move lift up a bit
   LiftMoveTo(100);
 
   //drive forward at max speed to goal
-  chassis.pid_drive_set(-40_in, DRIVE_SPEED, false);
+  chassis.pid_drive_set(-32_in, 127, false); //used to be -36
 
   //once 30 inches are driven, put down lift
-  chassis.pid_wait_until(-30_in);
-  LiftMoveTo(1450);
-  lift_wait();
+  chassis.pid_wait_until(-15.4_in); //used to be -26
+  LiftMoveTo(1700);
+  //pros::delay(300);
+  chassis.pid_wait_quick_chain();
+
+  //twist to the right then back
+  //chassis.pid_drive_set(7_in, DRIVE_SPEED, false);
+  //chassis.pid_wait();
+  chassis.pid_turn_set(110_deg, 127);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_turn_set(29_deg, TURN_SPEED);
   chassis.pid_wait();
+
+  //move towards second goal and clamp goal
+  chassis.pid_drive_set(17.6_in, DRIVE_SPEED, false);
+  chassis.pid_wait_until(17.4_in);
+  ClampDown(true);
+
+  //start intake, move backwards into rings
+  IntakeMove(127);
+  chassis.pid_drive_set(-12_in, DRIVE_SPEED, false);
+  chassis.pid_wait();
+
 }
 
 void RingSideElimsBlue() {
