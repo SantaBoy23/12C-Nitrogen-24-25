@@ -70,6 +70,7 @@ void SoloAWPBlue(){
   chassis.pid_drive_set(16_in, DRIVE_SPEED, true);
   chassis.pid_wait_until(15_in);
   ClampDown(true);
+  chassis.pid_wait();
 
   //start intake
   IntakeMove(127);
@@ -127,6 +128,7 @@ void SoloAWPBlue(){
   chassis.pid_drive_set(20_in, 50, true);
   chassis.pid_wait_until(19);
   ClampDown(true);
+  chassis.pid_wait();
 
   //delay to prevent jamming
   pros::delay(150);
@@ -135,7 +137,7 @@ void SoloAWPBlue(){
   IntakeMove(127);
 
   //turn to other rings
-  chassis.pid_turn_set(90_deg, TURN_SPEED);
+  chassis.pid_turn_set(87_deg, TURN_SPEED);
   chassis.pid_wait();
 
   //drive to other rings
@@ -206,7 +208,7 @@ void SoloAWPRed(){
   chassis.pid_wait();
 
   //drop ring rush mech
-  DoinkerRightDrop(true);
+  DoinkerLeftDrop(true);
 
   //drive to 4 ring stack
   chassis.pid_drive_set(-26_in, DRIVE_SPEED, true);
@@ -215,7 +217,7 @@ void SoloAWPRed(){
   //drive back from 4 ring stack and raise doinker
   chassis.pid_drive_set(42_in, DRIVE_SPEED, true); //used to be 40
   chassis.pid_wait();
-  DoinkerRightDrop(false);
+  DoinkerLeftDrop(false);
 
   //turn rings near alliance stake
   chassis.pid_turn_set(-82_deg, TURN_SPEED); //used to be 78
@@ -250,7 +252,7 @@ void SoloAWPRed(){
   IntakeMove(127);
 
   //turn to other rings
-  chassis.pid_turn_set(-90_deg, TURN_SPEED);
+  chassis.pid_turn_set(-87_deg, TURN_SPEED);
   chassis.pid_wait();
 
   //drive to other rings
@@ -930,11 +932,25 @@ void GoalSideElimsRed() {
 }
 
 void GoalSideElimsAltBlue(){
-
+  
 }
 
 void GoalSideElimsAltRed() {
+  
+  //set starting angle
+  chassis.drive_angle_set(-160_deg);
 
+  //move lift up a bit
+  LiftMoveTo(100);
+
+  //drive forward at max speed to goal
+  chassis.pid_drive_set(-40_in, DRIVE_SPEED, false);
+
+  //once 30 inches are driven, put down lift
+  chassis.pid_wait_until(-30_in);
+  LiftMoveTo(1450);
+  lift_wait();
+  chassis.pid_wait();
 }
 
 void RingSideElimsBlue() {

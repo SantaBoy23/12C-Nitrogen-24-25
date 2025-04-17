@@ -51,8 +51,8 @@ void ColorSort() {
           //Reverse intake
           IntakeMove(-127);
 
-          //Delay for 80ms
-          pros::delay(80);
+          //Delay for 75ms
+          pros::delay(75);
 
           //Restart intake
           IntakeMove(127);
@@ -68,8 +68,8 @@ void ColorSort() {
           //Reverse intake
           IntakeMove(-127);
 
-          //Delay for 80ms
-          pros::delay(80);
+          //Delay for 75ms
+          pros::delay(75);
 
           //Restart intake
           IntakeMove(127);
@@ -92,11 +92,11 @@ void ColorSort() {
           //Reverse intake
           IntakeMove(-127);
 
-          //Delay for 80ms
-          pros::delay(80);
+          //Delay for 75ms
+          pros::delay(75);
 
           //Restart driver intake control
-          IntakeControlActive = false;
+          IntakeControlActive = true;
         } 
       }
 
@@ -112,11 +112,11 @@ void ColorSort() {
           //Reverse intake
           IntakeMove(-127);
 
-          //Delay for 80ms
-          pros::delay(80);
+          //Delay for 75ms
+          pros::delay(75);
 
           //Restart driver intake control
-          IntakeControlActive = false;
+          IntakeControlActive = true;
         } 
       }
     }
