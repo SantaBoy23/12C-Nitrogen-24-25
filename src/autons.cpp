@@ -937,42 +937,59 @@ void GoalSideElimsAltBlue(){
 
 void GoalSideElimsAltRed() {
   //move lift up a bit
-  LiftMoveTo(100);
+  LiftMoveTo(500);
+
+  //start intake
+  IntakeMove(127);
 
   //drive forward at max speed to goal
-  chassis.pid_drive_set(-32_in, 127, false); //used to be -36
+  chassis.pid_drive_set(-34.5_in, 127, false); //used to be -36
 
-  //once 30 inches are driven, put down lift
-  chassis.pid_wait_until(-15.4_in); //used to be -26
-  LiftMoveTo(1400); //used to be 1450
-  //pros::delay(300);
+  //once 30 inches are driven, put down lift, then stop intake
+  chassis.pid_wait_until(-19_in); //used to be -26
+  LiftMoveTo(1500);
   chassis.pid_wait_quick_chain();
-
-  //turn quickly
-  //chassis.pid_turn_set(100_deg, 127);
-  //chassis.pid_wait();
+  IntakeMove(0);
 
   //move back quickly
-  chassis.pid_drive_set(10_in, 127, true);
+  chassis.pid_drive_set(1_in, 127, true);
+  chassis.pid_wait_quick_chain();
+
+  //turn quickly 
+  chassis.pid_turn_set(100_deg, 127);
   chassis.pid_wait();
 
-  //twist to the right then back
-  //chassis.pid_drive_set(7_in, DRIVE_SPEED, false);
-  //chassis.pid_wait();
-  //chassis.pid_turn_set(110_deg, 127);
-  //chassis.pid_wait_quick_chain();
-  //chassis.pid_turn_set(29_deg, TURN_SPEED);
-  //chassis.pid_wait();
+  //turn towards goal
+  chassis.pid_turn_set(90_deg, TURN_SPEED);
+  chassis.pid_wait();
 
   //move towards second goal and clamp goal
-  //chassis.pid_drive_set(17.6_in, DRIVE_SPEED, false);
-  //chassis.pid_wait_until(17.4_in);
-  //ClampDown(true);
+  chassis.pid_drive_set(16.3_in, 97, true);
+  chassis.pid_wait_until(16.1_in);
+  ClampDown(true);
+  chassis.pid_wait();
 
   //start intake, move backwards into rings
-  //IntakeMove(127);
-  //chassis.pid_drive_set(-12_in, DRIVE_SPEED, false);
-  //chassis.pid_wait();
+  IntakeMove(127);
+
+  //turn towards alliance stake rings
+  chassis.pid_turn_set(-132_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+  //move to alliance stake rings and drop right doinker
+  chassis.pid_drive_set(-30_in, DRIVE_SPEED, true);
+  chassis.pid_wait_until(-26_in);
+  DoinkerRightDrop(true);
+
+  //back up from ring, lift doinker, turn to ring, move into ring
+  chassis.pid_drive_set(10_in, DRIVE_SPEED, true);
+  chassis.pid_wait_until(8_in);
+  DoinkerRightDrop(false);
+  chassis.pid_turn_set(-110_deg, TURN_SPEED);
+  chassis.pid_wait();
+  chassis.pid_drive_set(-8_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
 }
 
 void RingSideElimsRed() {
