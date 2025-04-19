@@ -965,30 +965,38 @@ void GoalSideElimsAltRed() {
 
   //move towards second goal and clamp goal
   chassis.pid_drive_set(16.3_in, 97, true);
-  chassis.pid_wait_until(16.1_in);
+  chassis.pid_wait_until(15.5_in);
   ClampDown(true);
   chassis.pid_wait();
-
-  //start intake, move backwards into rings
-  IntakeMove(127);
+  LiftHome();
 
   //turn towards alliance stake rings
-  chassis.pid_turn_set(-132_deg, TURN_SPEED);
+  chassis.pid_turn_set(-47_deg, TURN_SPEED);
   chassis.pid_wait();
 
-  //move to alliance stake rings and drop right doinker
-  chassis.pid_drive_set(-30_in, DRIVE_SPEED, true);
-  chassis.pid_wait_until(-26_in);
+  //start intake
+  IntakeMove(127);
+
+  //wait for a bit, then stop
+  pros::delay(175);
+  IntakeMove(0);
+
+  //move to center rings and drop right doinker
+  chassis.pid_drive_set(-28_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
   DoinkerRightDrop(true);
 
-  //back up from ring, lift doinker, turn to ring, move into ring
-  chassis.pid_drive_set(10_in, DRIVE_SPEED, true);
-  chassis.pid_wait_until(8_in);
+  //back up from ring
+  chassis.pid_drive_set(12_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
   DoinkerRightDrop(false);
-  chassis.pid_turn_set(-110_deg, TURN_SPEED);
-  chassis.pid_wait();
-  chassis.pid_drive_set(-8_in, DRIVE_SPEED, true);
-  chassis.pid_wait();
+
+  //start intake
+  IntakeMove(127);
+  //chassis.pid_turn_set(-110_deg, TURN_SPEED);
+  //chassis.pid_wait();
+  //chassis.pid_drive_set(-8_in, DRIVE_SPEED, true);
+  //chassis.pid_wait();
 
 }
 
