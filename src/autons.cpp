@@ -1019,25 +1019,25 @@ void RingSideElimsRed() {
 void RingSideElimsBlue() {
   
   //set starting angle
-  //chassis.drive_angle_set(-170_deg);
+  //chassis.drive_angle_set(-160_deg);
 
   //put down doinker and start intake
   DoinkerRightDrop(true);
   IntakeMove(127);
 
   //drive to 4 ring stack
-  chassis.pid_drive_set(-42_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(-40_in, 127, false);
   chassis.pid_wait();
   
   //wait a bit and then turn off intake
-  pros::delay(200);
+  pros::delay(100);
   IntakeMove(0);
-  LiftMoveTo(1000);
+  pros::delay(100);
 
   //swing to mogo and clamp
-  chassis.pid_drive_set(1.5_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(1.4_in, DRIVE_SPEED, true);
   chassis.pid_wait_quick_chain();
-  chassis.pid_swing_set(ez::LEFT_SWING, 90_deg, SWING_SPEED, 10);
+  chassis.pid_swing_set(ez::LEFT_SWING, 87_deg, SWING_SPEED, 5); //used to be 90
   chassis.pid_wait();
   DoinkerRightDrop(false);
   pros::delay(400);
@@ -1048,53 +1048,34 @@ void RingSideElimsBlue() {
   ClampDown(true);
 
   //turn to line up with rings
-  pros::delay(200);
-  chassis.pid_turn_set(-80_deg, TURN_SPEED);
+  chassis.pid_turn_set(102_deg, TURN_SPEED);
   chassis.pid_wait();
-  DoinkerRightDrop(false);
 
   //drive over rings
+  pros::delay(150);
   IntakeMove(127);
-  chassis.pid_drive_set(-18_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(-34_in, 80, true);
   chassis.pid_wait();
 
-  //turn towards other rings
-  chassis.pid_turn_set(-95_deg, TURN_SPEED);
+  chassis.pid_turn_set(152_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+  chassis.pid_drive_set(-16_in, 40, true);
+  chassis.pid_wait_quick_chain();
+
+  chassis.pid_drive_set(10_in, DRIVE_SPEED, true);
+  chassis.pid_wait_quick_chain();
+
+  chassis.pid_drive_set(-5_in, DRIVE_SPEED, true);
+  chassis.pid_wait_quick_chain();
+
+  chassis.pid_drive_set(10_in, DRIVE_SPEED, true);
   chassis.pid_wait();
   
-  //drive over ring
-  chassis.pid_drive_set(-8_in, DRIVE_SPEED, true);
+  chassis.pid_turn_set(-110_deg, TURN_SPEED);
   chassis.pid_wait();
 
-  //turn to corner
-  chassis.pid_turn_set(-35_deg, TURN_SPEED);
-  chassis.pid_wait();
-  DoinkerLeftDrop(false);
-
-  //drive into corner
-  chassis.pid_drive_set(-10_in, DRIVE_SPEED, true);
-  chassis.pid_wait_quick_chain();
-  chassis.pid_drive_set(-18_in, 50, true);
-  chassis.pid_wait();
-
-  //drive back from corner
-  chassis.pid_drive_set(6_in, DRIVE_SPEED, true);
-  chassis.pid_wait_quick_chain();
-
-  //drive into corner again
-  chassis.pid_drive_set(-10_in, 50, true);
-  chassis.pid_wait();
-
-  //drive back from corner
-  chassis.pid_drive_set(6_in, DRIVE_SPEED, true);
-  chassis.pid_wait();
-
-  //turn towards preload
-  chassis.pid_turn_set(92_deg, TURN_SPEED);
-  chassis.pid_wait();
-
-  //drive to preload
-  chassis.pid_drive_set(-26_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(-85_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 }
 

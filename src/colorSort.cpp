@@ -21,7 +21,7 @@ void ToggleColorMode() {
     }
 
     //print current color mode on brain screen
-    pros::lcd::print(4, "Mode: %s", current_mode == BlueMode ? "Blue" : (current_mode == RedMode ? "Red" : "No Sort"));
+    pros::lcd::print(6, "Mode: %s", current_mode == BlueMode ? "Blue" : (current_mode == RedMode ? "Red" : "No Sort"));
 }
 
 //Function to sort opposite color of the current mode
