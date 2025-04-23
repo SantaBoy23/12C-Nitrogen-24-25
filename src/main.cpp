@@ -41,7 +41,7 @@ void initialize() {
     {"Safe Ring Side Blue\n\nSafe/Quals Ring Side for Blue. Start on Ring Side.", RingSideQualsBlue},
     {"Safe Ring Side Red\n\nSafe/Quals Ring Side for Red. Start on Ring Side.", RingSideQualsRed},
     {"Elims Goal Side Blue\n\nRegular/Elims Goal Side for Blue. Start on Goal Side.", GoalSideElimsBlue},
-    {"Elims Goal Side Red\n\nRegular/Elims Goal Side for Red. Start on Goal Side.", GoalSideElimsBlue},
+    {"Elims Goal Side Red\n\nRegular/Elims Goal Side for Red. Start on Goal Side.", GoalSideElimsRed},
     {"Elims Goal Side Alternate Blue\n\nGoal Rush/Elims Goal Side for Blue. Start on Goal Side.", GoalSideElimsAltBlue},
     {"Elims Goal Side Alternate Red\n\nGoal Rush/Elims Goal Side for Red. Start on Goal Side.", GoalSideElimsAltRed},
     {"Elims Ring Side Blue\n\nRing Rush/Elims Ring for Blue. Start on Ring Side.", RingSideElimsBlue},

@@ -46,7 +46,9 @@ void LiftLimitControl() {
             pros::delay(100);
             ResetLiftPosition();
             LiftSetBrakeHold();
+              LiftMoveTo(20);
             DownTog = false;
+            
         }
         else {
             LiftMoveTo(LiftPID.target - 70);
@@ -82,7 +84,7 @@ void LiftHome() {
 //Function to set lift PID target to loading position
 void LiftLoad() {
     DownTog = false;
-    LiftPID.target_set(180);
+    LiftPID.target_set(240);
 }
 
 //Function to set lift PID target to scoring position
