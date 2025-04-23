@@ -22,9 +22,16 @@ inline void lift_wait() {
     }
 }
 
+inline bool LiftControlAuto = false;
+inline bool LiftControlDriver = false;
+inline bool DownTog = false;
+
 void LiftMoveTo(int LiftPosition);
 void LiftManualControl();
 void ResetLiftPosition();
+void LiftSetBrakeHold();
+void LiftSetBrakeCoast();
+void LiftLimitControl();
 void LiftHome();
 void LiftLoad();
 void LiftScore();

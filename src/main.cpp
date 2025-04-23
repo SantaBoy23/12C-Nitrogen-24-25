@@ -88,6 +88,7 @@ void autonomous() {
   chassis.drive_brake_set(MOTOR_BRAKE_HOLD);  // Set motors to hold.  This helps autonomous consistency
 
   ColorSortAuto = true; // Set color sort to autonomous mode
+  LiftControlAuto = true; // Set lift control to autonomous mode
 
   ez::as::auton_selector.selected_auton_call();  // Calls selected auton from autonomous selector
 }
@@ -179,6 +180,9 @@ void opcontrol() {
   ColorSortAuto = false; // Disable automous color sort
   ColorSortDriver = true; // Enable driver control color sort
 
+  LiftControlAuto = false; // Disable automous lift control
+  LiftControlDriver = true; // Enable driver lift control
+
   chassis.drive_brake_set(MOTOR_BRAKE_COAST);
 
   // Put all robot control functions in this loop
@@ -187,6 +191,7 @@ void opcontrol() {
     chassis.opcontrol_tank();
     IntakeControl();
     LiftControl();
+    LiftLimitControl();
     DoinkerControl();
     ClampControl();
     
