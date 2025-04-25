@@ -48,13 +48,15 @@ void ColorSort() {
         //Run this loop if the color sensor detects a hue <17 and the promixity is ≤300
         if ((IntakeColorHue) < 17 && (IntakeColorProximity <= 300)) {
 
+          pros::delay(18);
+
           //Reverse intake
           IntakeMove(-127);
 
           //Delay for 75ms
-          pros::delay(75);
+          pros::delay(45); //used to be 55
 
-          //Restart intake
+          //Restart driver intake control
           IntakeMove(127);
         } 
       }
@@ -65,13 +67,15 @@ void ColorSort() {
         //Run this loop if the color sensor detects a hue >190 and <350 and the promixity is ≤255
         if (((IntakeColorHue > 190) && (IntakeColorHue) < 350) && (IntakeColorProximity <= 255)) {
 
+          pros::delay(18);
+
           //Reverse intake
           IntakeMove(-127);
 
           //Delay for 75ms
-          pros::delay(75);
+          pros::delay(45); //used to be 55
 
-          //Restart intake
+          //Restart driver intake control
           IntakeMove(127);
         } 
       }
@@ -86,14 +90,13 @@ void ColorSort() {
         //Run this loop if the color sensor detects a hue <17 and the promixity is ≤300
         if ((IntakeColorHue) < 17 && (IntakeColorProximity <= 300)) {
 
-          //Stop driver intake control
-          IntakeControlActive = false;
+          pros::delay(18);
 
           //Reverse intake
-          IntakeMove(-127);
+          IntakeControlActive = false;
 
           //Delay for 75ms
-          pros::delay(75);
+          pros::delay(60); //used to be 65
 
           //Restart driver intake control
           IntakeControlActive = true;
@@ -106,14 +109,13 @@ void ColorSort() {
         //Run this loop if the color sensor detects a hue >190 and <350 and the promixity is ≤255
         if (((IntakeColorHue > 190) && (IntakeColorHue) < 350) && (IntakeColorProximity <= 255)) {
 
-          //Stop driver intake control
-          IntakeControlActive = false;
+          pros::delay(18);
 
           //Reverse intake
-          IntakeMove(-127);
+          IntakeControlActive = false;
 
           //Delay for 75ms
-          pros::delay(75);
+          pros::delay(60); //used to be 65
 
           //Restart driver intake control
           IntakeControlActive = true;
