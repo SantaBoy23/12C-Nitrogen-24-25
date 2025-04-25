@@ -90,7 +90,7 @@ void LiftLoad() {
 //Function to set lift PID target to scoring position
 void LiftScore() {
     DownTog = false;
-    LiftPID.target_set(1100);
+    LiftPID.target_set(1200);
 }
 
 //Function to manually control the lift
