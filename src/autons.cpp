@@ -1041,24 +1041,37 @@ void RingSideElimsRed() {
   chassis.pid_turn_set(-152_deg, TURN_SPEED);
   chassis.pid_wait();
 
-  chassis.pid_drive_set(-16_in, 40, true);
+  chassis.pid_drive_set(-22_in, 40, true);
   chassis.pid_wait_quick_chain();
 
   chassis.pid_drive_set(10_in, DRIVE_SPEED, true);
   chassis.pid_wait_quick_chain();
 
-  chassis.pid_drive_set(-5_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(-8_in, DRIVE_SPEED, true);
   chassis.pid_wait_quick_chain();
 
-  chassis.pid_drive_set(10_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(13_in, DRIVE_SPEED, true);
   chassis.pid_wait();
   
-  chassis.pid_turn_set(110_deg, TURN_SPEED);
+  chassis.pid_turn_set(104_deg, TURN_SPEED);
   chassis.pid_wait();
 
-  chassis.pid_drive_set(-85_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(-39.7_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 
+  DoinkerRightDrop(true);
+  
+  chassis.pid_drive_set(8_in, DRIVE_SPEED, true);
+  LiftMoveTo(200);
+  chassis.pid_wait();
+  
+  DoinkerRightDrop(false);
+
+  chassis.pid_drive_set(-8_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  chassis.pid_turn_set(170_deg, TURN_SPEED);
+  chassis.pid_wait();
 }
 
 void RingSideElimsBlue() {
