@@ -46,6 +46,7 @@ void initialize() {
     {"Elims Goal Side Alternate Red\n\nGoal Rush/Elims Goal Side for Red. Start on Goal Side.", GoalSideElimsAltRed},
     {"Elims Ring Side Blue\n\nRing Rush/Elims Ring for Blue. Start on Ring Side.", RingSideElimsBlue},
     {"Elims Ring Side Red\n\nRing Rush/Elims Ring for Red. Start on Ring Side.", RingSideElimsRed},
+    {"Do Nothing\n\nDO NOTHING!! PICK THIS ONE JULES!! NIKHIL!!", DoNothingAuto},
       {"Drive\n\nDrive forward and come back", drive_example},
       {"Turn\n\nTurn 3 times.", turn_example},
       {"Drive and Turn\n\nDrive forward, turn, come back", drive_and_turn},

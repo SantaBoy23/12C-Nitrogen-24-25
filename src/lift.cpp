@@ -58,20 +58,6 @@ void LiftLimitControl() {
 
 //Function to set lift PID target to start/home position
 void LiftHome() {
-    /*
-    //If the lift limit switch is pressed, reset the lift position
-    if (liftLimit.get_value()){
-        pros::delay(20);
-        ResetLiftPosition();
-        LiftSetBrakeHold();
-        LiftMoveTo(0);
-    }
-
-    //If the lift limit switch is not being pressed, bring the lift home. Target is negative to counteract slippage.
-    else {
-        LiftMoveTo(-50);
-    }
-    */
     if (LiftControlAuto == true) {
         LiftMoveTo(0);
     }
@@ -84,7 +70,7 @@ void LiftHome() {
 //Function to set lift PID target to loading position
 void LiftLoad() {
     DownTog = false;
-    LiftPID.target_set(240);
+    LiftPID.target_set(220);
 }
 
 //Function to set lift PID target to scoring position

@@ -16,6 +16,7 @@ void GoalSideElimsAltBlue();
 void GoalSideElimsAltRed();
 void RingSideElimsBlue();
 void RingSideElimsRed();
+void DoNothingAuto();
 
 void drive_example();
 void turn_example();

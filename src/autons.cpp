@@ -1134,6 +1134,10 @@ void RingSideElimsBlue() {
   chassis.pid_wait();
 }
 
+void DoNothingAuto(){
+  DoNothing();
+}
+
 ///
 // Drive Example
 ///
