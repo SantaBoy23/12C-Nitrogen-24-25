@@ -70,7 +70,7 @@ void LiftHome() {
 //Function to set lift PID target to loading position
 void LiftLoad() {
     DownTog = false;
-    LiftPID.target_set(220);
+    LiftPID.target_set(245);
 }
 
 //Function to set lift PID target to scoring position

@@ -1072,6 +1072,11 @@ void RingSideElimsRed() {
 
   chassis.pid_turn_set(170_deg, TURN_SPEED);
   chassis.pid_wait();
+
+  chassis.pid_drive_set(-8_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  LiftMoveTo(1300);
 }
 
 void RingSideElimsBlue() {
@@ -1092,7 +1097,7 @@ void RingSideElimsBlue() {
   //swing to mogo and clamp
   chassis.pid_drive_set(1.4_in, DRIVE_SPEED, true);
   chassis.pid_wait_quick_chain();
-  chassis.pid_swing_set(ez::LEFT_SWING, 87_deg, SWING_SPEED, 5); //used to be 90
+  chassis.pid_swing_set(ez::LEFT_SWING, 85_deg, SWING_SPEED, 5); //used to be 90
   chassis.pid_wait();
   DoinkerRightDrop(false);
   pros::delay(400);
@@ -1112,26 +1117,48 @@ void RingSideElimsBlue() {
   chassis.pid_drive_set(-34_in, 80, true);
   chassis.pid_wait();
 
-  chassis.pid_turn_set(152_deg, TURN_SPEED);
+  chassis.pid_turn_set(149_deg, TURN_SPEED);
   chassis.pid_wait();
 
-  chassis.pid_drive_set(-16_in, 40, true);
+  chassis.pid_drive_set(-21_in, 40, true);
   chassis.pid_wait_quick_chain();
 
   chassis.pid_drive_set(10_in, DRIVE_SPEED, true);
   chassis.pid_wait_quick_chain();
 
-  chassis.pid_drive_set(-5_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(-8_in, DRIVE_SPEED, true);
   chassis.pid_wait_quick_chain();
 
-  chassis.pid_drive_set(10_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(13_in, DRIVE_SPEED, true);
   chassis.pid_wait();
   
-  chassis.pid_turn_set(-110_deg, TURN_SPEED);
+  chassis.pid_turn_set(-104_deg, TURN_SPEED);
   chassis.pid_wait();
 
-  chassis.pid_drive_set(-85_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(-40.1_in, DRIVE_SPEED, true);
   chassis.pid_wait();
+
+  DoinkerLeftDrop(true);
+  
+  chassis.pid_drive_set(8_in, DRIVE_SPEED, true);
+  LiftMoveTo(200);
+  chassis.pid_wait_quick_chain();
+
+  chassis.pid_turn_set(-108_deg, TURN_SPEED);
+  chassis.pid_wait_quick_chain();
+
+  DoinkerLeftDrop(false);
+
+  chassis.pid_drive_set(-8_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  chassis.pid_turn_set(-170_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+  chassis.pid_drive_set(-8_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  LiftMoveTo(1300);
 }
 
 void DoNothingAuto(){
