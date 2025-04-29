@@ -11,3 +11,4 @@ inline bool ColorSortDriver = false;
 void ToggleColorMode();
 void ColorSort();
 void ColorSensorLight(int LightLevel);
+void ColorSortKill();

@@ -196,6 +196,7 @@ void opcontrol() {
     LiftLimitControl();
     DoinkerControl();
     ClampControl();
+    ColorSortKill();
     pros::delay(ez::util::DELAY_TIME);
   }
 }

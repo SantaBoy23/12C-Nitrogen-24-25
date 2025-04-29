@@ -16,11 +16,7 @@ void ToggleColorMode() {
       current_mode = RedMode;
     } else if (current_mode == RedMode) {
       current_mode = NoSortMode;
-    } 
-    else if (master.get_digital(DIGITAL_LEFT) && master.get_digital(DIGITAL_RIGHT) && master.get_digital(DIGITAL_A)){
-      current_mode = NoSortMode;
-    }
-      else {
+    } else {
       current_mode = BlueMode;
     }
 
@@ -141,4 +137,10 @@ void ColorSort() {
 //Parallel function to set the color sensor light level
 void ColorSensorLight(int LightLevel) {
   intakeColor.set_led_pwm(LightLevel);
+}
+
+void ColorSortKill () {
+  if (master.get_digital(DIGITAL_UP) && master.get_digital(DIGITAL_LEFT)) {
+    ColorSortDriver = false;
+  }
 }
