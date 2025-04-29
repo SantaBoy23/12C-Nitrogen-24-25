@@ -196,7 +196,6 @@ void opcontrol() {
     LiftLimitControl();
     DoinkerControl();
     ClampControl();
-    
     pros::delay(ez::util::DELAY_TIME);
   }
 }

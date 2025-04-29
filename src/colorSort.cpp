@@ -16,7 +16,11 @@ void ToggleColorMode() {
       current_mode = RedMode;
     } else if (current_mode == RedMode) {
       current_mode = NoSortMode;
-    } else {
+    } 
+    else if (master.get_digital(DIGITAL_LEFT) && master.get_digital(DIGITAL_RIGHT) && master.get_digital(DIGITAL_A)){
+      current_mode = NoSortMode;
+    }
+      else {
       current_mode = BlueMode;
     }
 
@@ -46,9 +50,9 @@ void ColorSort() {
       if (current_mode == BlueMode) {  
 
         //Run this loop if the color sensor detects a hue <17 and the promixity is ≤300
-        if ((IntakeColorHue) < 17 && (IntakeColorProximity <= 300)) {
+        if ((IntakeColorHue) < 25 && (IntakeColorProximity <= 300)) {
 
-          pros::delay(40);
+          pros::delay(80);
 
           //Reverse intake
           IntakeMove(-127);
@@ -73,7 +77,7 @@ void ColorSort() {
           IntakeMove(-127);
 
           //Delay for 75ms
-          pros::delay(65); //used to be 55
+          pros::delay(100); //used to be 55
 
           //Restart driver intake control
           IntakeMove(127);
@@ -88,9 +92,9 @@ void ColorSort() {
       if (current_mode == BlueMode) {  
 
         //Run this loop if the color sensor detects a hue <17 and the promixity is ≤300
-        if ((IntakeColorHue) < 17 && (IntakeColorProximity <= 300)) {
+        if ((IntakeColorHue) < 25 && (IntakeColorProximity <= 300)) {
 
-          pros::delay(40);
+          pros::delay(80);
 
           //Stop driver intake control
           IntakeControlActive = false;
@@ -121,7 +125,7 @@ void ColorSort() {
           IntakeMove(-127);
 
           //Delay for 75ms
-          pros::delay(65); //used to be 65
+          pros::delay(100); //used to be 65
 
           //Restart driver intake control
           IntakeControlActive = true;
