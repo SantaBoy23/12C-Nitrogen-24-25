@@ -1018,7 +1018,7 @@ void RingSideElimsRed() {
   //swing to mogo and clamp
   chassis.pid_drive_set(1.4_in, DRIVE_SPEED, true);
   chassis.pid_wait_quick_chain();
-  chassis.pid_swing_set(ez::RIGHT_SWING, -87_deg, SWING_SPEED, 5); //used to be 90
+  chassis.pid_swing_set(ez::RIGHT_SWING, -85_deg, SWING_SPEED, 5);
   chassis.pid_wait();
   DoinkerLeftDrop(false);
   pros::delay(400);
@@ -1038,44 +1038,67 @@ void RingSideElimsRed() {
   chassis.pid_drive_set(-34_in, 80, true);
   chassis.pid_wait();
 
-  chassis.pid_turn_set(-152_deg, TURN_SPEED);
+  //turn in general direction of corner
+  chassis.pid_turn_set(-160_deg, TURN_SPEED);
   chassis.pid_wait();
 
-  chassis.pid_drive_set(-22_in, 40, true);
+  //drive over to corner
+  chassis.pid_drive_set(-9_in, DRIVE_SPEED, true);
   chassis.pid_wait_quick_chain();
 
-  chassis.pid_drive_set(10_in, DRIVE_SPEED, true);
+  //turn towards corner
+  chassis.pid_turn_set(-114_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+  //drive into corner and drive back
+  chassis.pid_drive_set(-4.5_in, DRIVE_SPEED, true);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(14_in, DRIVE_SPEED, true);
   chassis.pid_wait_quick_chain();
 
-  chassis.pid_drive_set(-8_in, DRIVE_SPEED, true);
+  //grab last ring
+  chassis.pid_drive_set(-7_in, DRIVE_SPEED, true);
   chassis.pid_wait_quick_chain();
 
+  //drive away from corner
+  chassis.pid_drive_set(8_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+  
+  //turn towards starting position
+  chassis.pid_turn_set(111_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+  //drive to alliance stake rings
+  chassis.pid_drive_set(-30_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  //drop doinker, wait a bit
+  DoinkerLeftDrop(true);
+  pros::delay(50);
+  
+  //drive back, wait a bit
   chassis.pid_drive_set(13_in, DRIVE_SPEED, true);
   chassis.pid_wait();
-  
-  chassis.pid_turn_set(104_deg, TURN_SPEED);
+  pros::delay(50);
+
+  //lift doinker and drive forward
+  DoinkerLeftDrop(false);
+  chassis.pid_drive_set(-28_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 
-  chassis.pid_drive_set(-39.7_in, DRIVE_SPEED, true);
+  //move lift to loading position
+  LiftMoveTo(195);
+
+  //turn towards alliance stake
+  chassis.pid_turn_set(-167_deg, TURN_SPEED);
   chassis.pid_wait();
 
-  DoinkerRightDrop(true);
-  
-  chassis.pid_drive_set(8_in, DRIVE_SPEED, true);
-  LiftMoveTo(200);
-  chassis.pid_wait();
-  
-  DoinkerRightDrop(false);
-
-  chassis.pid_drive_set(-8_in, DRIVE_SPEED, true);
+  //drive a bit forward
+  chassis.pid_drive_set(-4_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 
-  chassis.pid_turn_set(170_deg, TURN_SPEED);
-  chassis.pid_wait();
-
-  chassis.pid_drive_set(-8_in, DRIVE_SPEED, true);
-  chassis.pid_wait();
-
+  //put ring on alliance stake
+  IntakeMove(0);
   LiftMoveTo(1300);
 }
 
@@ -1117,72 +1140,66 @@ void RingSideElimsBlue() {
   chassis.pid_drive_set(-34_in, 80, true);
   chassis.pid_wait();
 
+  //turn in general direction of corner
   chassis.pid_turn_set(160_deg, TURN_SPEED);
   chassis.pid_wait();
 
+  //drive over to corner
   chassis.pid_drive_set(-9_in, DRIVE_SPEED, true);
   chassis.pid_wait_quick_chain();
 
+  //turn towards corner
   chassis.pid_turn_set(114_deg, TURN_SPEED);
   chassis.pid_wait();
 
-  chassis.pid_drive_set(-4.5_in, DRIVE_SPEED, true); //used to be 10
+  //drive into corner and drive back
+  chassis.pid_drive_set(-4.5_in, DRIVE_SPEED, true);
   chassis.pid_wait_quick_chain();
-
   chassis.pid_drive_set(14_in, DRIVE_SPEED, true);
   chassis.pid_wait_quick_chain();
 
+  //grab last ring
   chassis.pid_drive_set(-7_in, DRIVE_SPEED, true);
   chassis.pid_wait_quick_chain();
 
+  //drive away from corner
   chassis.pid_drive_set(8_in, DRIVE_SPEED, true);
   chassis.pid_wait();
   
+  //turn towards starting position
   chassis.pid_turn_set(-111_deg, TURN_SPEED);
   chassis.pid_wait();
 
-  chassis.pid_drive_set(-32.2_in, DRIVE_SPEED, true);
+  //drive to alliance stake rings
+  chassis.pid_drive_set(-31.5_in, DRIVE_SPEED, true);
   chassis.pid_wait();
-
+   
+  //drop doinker, wait a bit
   DoinkerRightDrop(true);
   pros::delay(50);
   
+  //drive back, wait a bit
   chassis.pid_drive_set(12_in, DRIVE_SPEED, true);
   chassis.pid_wait();
   pros::delay(50);
 
+  //lift doinker and drive forward
   DoinkerRightDrop(false);
-
-  /*
-  chassis.pid_turn_set(-160_deg, TURN_SPEED);
-  chassis.pid_wait_quick_chain();
-
-
-  chassis.pid_drive_set(-2_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(-28_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 
-  //chassis.pid_turn_set(-170_deg, TURN_SPEED);
-  //chassis.pid_wait();
-
-  LiftMoveTo(195);
-  pros::delay(200);
-  IntakeMove(0);
-
-  chassis.pid_drive_set(-2_in, DRIVE_SPEED, true);
-  chassis.pid_wait();
-  */
-
-  chassis.pid_drive_set(-24_in, DRIVE_SPEED, true);
-  chassis.pid_wait();
-
+  //move lift to loading position
   LiftMoveTo(195);
 
-  chassis.pid_turn_set(167_deg, TURN_SPEED);
+  //turn towards alliance stake
+  chassis.pid_turn_set(168_deg, TURN_SPEED);
   chassis.pid_wait();
 
-  chassis.pid_drive_set(4_in, DRIVE_SPEED, true);
+  //drive a bit forward
+  chassis.pid_drive_set(2_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 
+  //put ring on alliance stake
   IntakeMove(0);
   LiftMoveTo(1300);
 }
