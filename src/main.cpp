@@ -48,6 +48,8 @@ void initialize() {
     {"Elims Ring Side Red\n\nRing Rush/Elims Ring for Red. Start on Ring Side.", RingSideElimsRed},
     {"Goal Side Neutral Stake Red\n\nGets neutral stake for Red. Start on goal Side.", RedGoalNeutralStake},
     {"Goal Side Neutral Stake Blue\n\nGets neutral stake for Blue. Start on goal Side.", BlueGoalNeutralStake},
+    {"Ring Side Neutral Stake Red\n\nGets neutral stake for Red. Start on ring Side.", RedRingNeutralStake},
+    {"Ring Side Neutral Stake Blue\n\nGets neutral stake for Blue. Start on ring Side.", BlueRingNeutralStake},
     {"Do Nothing\n\nDo Nothing for Blue and Red. Start anywhere.", DoNothingAuto},
   });
 

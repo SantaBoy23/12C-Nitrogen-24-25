@@ -18,6 +18,8 @@ void RingSideElimsBlue();
 void RingSideElimsRed();
 void RedGoalNeutralStake();
 void BlueGoalNeutralStake();
+void RedRingNeutralStake();
+void BlueRingNeutralStake();
 void DoNothingAuto();
 
 void drive_example();

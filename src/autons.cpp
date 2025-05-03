@@ -858,12 +858,12 @@ void BlueGoalNeutralStake() {
   chassis.pid_wait();
 
   //start intake and move into rings
-  IntakeMove(true);
+  IntakeMove(127);
   chassis.pid_drive_set(-20_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 
   //stop intake with ring in intake, then do 180
-  IntakeMove(false);
+  IntakeMove(0);
   chassis.pid_turn_set(45_deg, TURN_SPEED);
   chassis.pid_wait();
 
@@ -875,7 +875,7 @@ void BlueGoalNeutralStake() {
   //turn towards corner then start intake
   chassis.pid_turn_set(225_deg, TURN_SPEED);
   chassis.pid_wait();
-  IntakeMove(true);
+  IntakeMove(127);
 
   //move towards corner
   chassis.pid_drive_set(-43_in, DRIVE_SPEED, true);
@@ -914,6 +914,101 @@ void BlueGoalNeutralStake() {
   LiftMoveTo(1285);
   chassis.pid_drive_set(-11.75_in, DRIVE_SPEED, true);
   chassis.pid_wait();
+
+}
+
+void RedRingNeutralStake() {
+  //set starting angle
+  chassis.drive_angle_set(-12_deg);
+
+  //move forward towards neutral stake
+  chassis.pid_drive_set(-40_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  //Lift LB
+  LiftMoveTo(1300);
+
+  //back away from wall stake, turn away from wall stake towards ring stacks, then reset LB
+  chassis.pid_drive_set(7_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+  chassis.pid_turn_set(215_deg, TURN_SPEED);
+  chassis.pid_wait();
+  LiftHome();
+
+  //drop doinker, move into ring stack
+  DoinkerRightDrop(true);
+  chassis.pid_drive_set(-10_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  //back up then turn towards ring
+  chassis.pid_drive_set(23_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+  chassis.pid_turn_set(270_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+  //start intake and move into rings, then stop intake
+  IntakeMove(127);
+  chassis.pid_drive_set(-20_in, DRIVE_SPEED, true);
+  chassis.pid_wait_until(-9);
+  IntakeMove(0);
+  chassis.pid_wait();
+
+  //do 180, move forward and clamp goal
+  chassis.pid_turn_set(90_deg, TURN_SPEED);
+  chassis.pid_wait();
+  chassis.pid_drive_set(8_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+  ClampDown(true);
+
+  //Turn towards corner rings and lift doinker
+  chassis.pid_turn_set(45_deg, TURN_SPEED);
+  chassis.pid_wait_until(35);
+  DoinkerRightDrop(false);
+  chassis.pid_wait();
+
+  //start intake
+  IntakeMove(127);
+
+  //move towards corner
+  chassis.pid_drive_set(-43_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  //back out of corner then move in again
+  chassis.pid_drive_set(9_in, DRIVE_SPEED, true);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(-8_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  //turn towards alliance ring
+  chassis.pid_turn_set(288_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+  //drive to alliance rings and drop left doinker
+  chassis.pid_drive_set(-26.5_in, DRIVE_SPEED, true);
+  chassis.pid_wait_until(-25.75);
+  DoinkerLeftDrop(true);
+  chassis.pid_wait();
+
+  //move away from alliance rings and lift doinker
+  chassis.pid_drive_set(8_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+  DoinkerLeftDrop(false);
+
+  //turn towards ring, move into ring, then back up
+  chassis.pid_turn_set(250_deg, TURN_SPEED);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(-7_in, DRIVE_SPEED, true);
+  chassis.pid_wait_quick_chain();
+
+  //turn towards ring and ladder, lift lb, and move into ladder
+  chassis.pid_turn_set(220_deg, TURN_SPEED);
+  chassis.pid_wait_quick_chain();
+  LiftMoveTo(1285);
+  chassis.pid_drive_set(-11.75_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+}
+
+void BlueRingNeutralStake() {
 
 }
 
