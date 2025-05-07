@@ -369,7 +369,7 @@ void SoloAWPAltBlue () {
 
   //move to rings and stop intake
   intake.move(127);
-  chassis.pid_drive_set(-22_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(-26_in, DRIVE_SPEED, true); //was -22
   chassis.pid_wait();
   intake.move(0);
 
@@ -381,8 +381,8 @@ void SoloAWPAltBlue () {
   chassis.pid_wait();
 
   //move to goal and grab goal and then move back
-  chassis.pid_drive_set(8.5_in, DRIVE_SPEED, true);
-  chassis.pid_wait_until(7.5_in);
+  chassis.pid_drive_set(7_in, DRIVE_SPEED, true);
+  chassis.pid_wait_until(6_in);
   ClampDown(true);
   chassis.pid_wait_quick_chain();
   chassis.pid_drive_set(-3_in, DRIVE_SPEED, true);
@@ -393,7 +393,7 @@ void SoloAWPAltBlue () {
   chassis.pid_turn_set(270_deg, TURN_SPEED);
   chassis.pid_wait_quick_chain();
   intake.move(127);
-  LiftMoveTo(1250);
+  LiftMoveTo(1200);
 
   //move into tower
   chassis.pid_drive_set(-11_in, DRIVE_SPEED, true);
@@ -517,7 +517,7 @@ void SoloAWPAltRed () {
   
 
   //turn towards tower and put lb up
-  chassis.pid_turn_set(-270_deg, TURN_SPEED);
+  chassis.pid_turn_set(-260_deg, TURN_SPEED);
   chassis.pid_wait_quick_chain();
   intake.move(127);
   LiftMoveTo(1250);
@@ -1345,7 +1345,7 @@ void RingSideElimsRed() {
   chassis.pid_wait();
 
   //drive into corner and drive back
-  chassis.pid_drive_set(-4.5_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(-4.1_in, DRIVE_SPEED, true); //used to be -4.5
   chassis.pid_wait_quick_chain();
   chassis.pid_drive_set(14_in, DRIVE_SPEED, true);
   chassis.pid_wait_quick_chain();
@@ -1354,6 +1354,20 @@ void RingSideElimsRed() {
   chassis.pid_drive_set(-7_in, DRIVE_SPEED, true);
   chassis.pid_wait_quick_chain();
 
+
+  /*
+  //QUALS ENDING
+  //drive out of corner
+  chassis.pid_drive_set(16_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  //Turn towards opponent side
+  chassis.pid_turn_set(180_deg, TURN_SPEED);
+  chassis.pid_wait();
+  */
+
+
+  //Elims Ending
   //drive away from corner
   chassis.pid_drive_set(8_in, DRIVE_SPEED, true);
   chassis.pid_wait();
@@ -1412,7 +1426,7 @@ void RingSideElimsBlue() {
   pros::delay(100);
 
   //swing to mogo and clamp
-  chassis.pid_drive_set(1.4_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(2.4_in, DRIVE_SPEED, true); //used to be 1.4
   chassis.pid_wait_quick_chain();
   chassis.pid_swing_set(ez::LEFT_SWING, 85_deg, SWING_SPEED, 5); //used to be 90
   chassis.pid_wait();
@@ -1447,7 +1461,7 @@ void RingSideElimsBlue() {
   chassis.pid_wait();
 
   //drive into corner and drive back
-  chassis.pid_drive_set(-4.5_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(-3.8_in, DRIVE_SPEED, true); //used to be -4.5
   chassis.pid_wait_quick_chain();
   chassis.pid_drive_set(14_in, DRIVE_SPEED, true);
   chassis.pid_wait_quick_chain();
@@ -1456,6 +1470,31 @@ void RingSideElimsBlue() {
   chassis.pid_drive_set(-7_in, DRIVE_SPEED, true);
   chassis.pid_wait_quick_chain();
 
+
+  //QUALS ENDING
+  //drive away from corner
+  chassis.pid_drive_set(8_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+  
+  //turn towards starting position
+  chassis.pid_turn_set(-111_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+  //drive towards alliance stake rings
+  chassis.pid_drive_set(-20_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  //move away from alliance stake
+  chassis.pid_drive_set(30_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  //turn towards other side
+  chassis.pid_turn_set(180_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+
+  /*
+  //Elims Ending
   //drive away from corner
   chassis.pid_drive_set(8_in, DRIVE_SPEED, true);
   chassis.pid_wait();
@@ -1490,13 +1529,16 @@ void RingSideElimsBlue() {
   chassis.pid_wait();
 
   //drive a bit forward
-  chassis.pid_drive_set(2_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(2.1_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 
   //put ring on alliance stake
   IntakeMove(0);
   LiftMoveTo(1300);
+  */
 }
+
+
 
 void DoNothingAuto(){
   DoNothing();
