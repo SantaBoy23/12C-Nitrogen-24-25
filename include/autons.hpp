@@ -20,6 +20,8 @@ void RedGoalNeutralStake();
 void BlueGoalNeutralStake();
 void RedRingNeutralStake();
 void BlueRingNeutralStake();
+void RingSideQualsRedNoRing();
+void RingSideQualsBlueNoRing();
 void DoNothingAuto();
 
 void drive_example();
